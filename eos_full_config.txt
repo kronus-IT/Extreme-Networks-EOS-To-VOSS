@@ -1,0 +1,3954 @@
+#BEGIN:  08.42.03.0007
+
+begin
+!
+# ***** NON-DEFAULT CONFIGURATION *****
+!
+!
+# Chassis Firmware Revision:  08.42.03.0007
+!
+!
+#  SLOT   TYPE
+#  ___    ________________
+!
+#   1     
+#   2     
+#   3     SG1201-0848
+#   4     SK1208-0808-F6
+#   5     SK1208-0808-F6
+#   6     
+#   7     
+#   8     SK1008-0816
+!
+!
+# system
+set system contact "ISD Location"
+set system location "Main Building - Server Rm 01 03"
+set system name LANCore01
+set system login admin super-user enable password :c8fa17729ad72f21c38326f2690bac4672308123d6ee6494781e39ce:1: local-only yes
+set system login ro read-only enable password :d901a5990fa1b106299b6df714482f617409198a79a5f5ccaabe4ef9:1: local-only yes
+set system login rw read-write enable password :3949e67e8f494a4ffb55c1d288448fb484f4e7f0ac12b42146ac924e:1:
+!
+# license
+!
+# bonding
+!
+# modal configuration
+!
+configure terminal
+!
+ ip access-list extended WebTraffic
+  deny ip any 10.119.0.0 0.0.255.255
+  deny ip any 172.16.0.0 0.15.255.255
+  deny ip any 192.168.0.0 0.0.255.255
+  permit ip host 10.119.200.158 any
+  exit
+!
+ route-map policy traffic permit 15
+  match ip address WebTraffic
+  set next-hop 10.119.0.35
+  exit
+!
+ interface loop.0.1
+  ip address 1.1.1.1 255.255.255.255 primary
+  no shutdown
+  exit
+ interface vlan.0.10
+  ip address 10.119.255.10 255.255.255.252 primary
+  no ip redirects
+  no shutdown
+  exit
+ interface vlan.0.30
+  ip address 10.119.255.209 255.255.255.252 primary
+  no ip redirects
+  no shutdown
+  exit
+ interface vlan.0.100
+  description "LAN-Firewall"
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.395
+  no shutdown
+  exit
+ interface vlan.0.601
+  ip address 192.168.160.2 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.602
+  ip address 192.168.160.18 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.17 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.603
+  ip address 192.168.160.34 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.33 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.604
+  ip address 192.168.160.50 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.49 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.605
+  ip address 192.168.160.66 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.606
+  ip address 192.168.160.82 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.81 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.607
+  ip address 192.168.160.98 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.97 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.608
+  ip address 192.168.160.114 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.113 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.609
+  ip address 192.168.160.130 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.610
+  ip address 192.168.160.146 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.145 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.611
+  ip address 192.168.160.162 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.161 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.612
+  ip address 192.168.160.178 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.177 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.613
+  ip address 192.168.160.194 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.614
+  ip address 192.168.160.210 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.209 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.615
+  ip address 192.168.160.226 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.160.225 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.616
+  ip address 192.168.160.242 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.160.241 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.617
+  ip address 192.168.161.2 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.618
+  ip address 192.168.161.18 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.17 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.619
+  ip address 192.168.161.34 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.33 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.620
+  ip address 192.168.161.50 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.49 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.621
+  ip address 192.168.161.66 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.622
+  ip address 192.168.161.82 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.81 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.623
+  ip address 192.168.161.98 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.97 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.624
+  ip address 192.168.161.114 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.113 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.625
+  ip address 192.168.161.130 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.626
+  ip address 192.168.161.146 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.145 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.627
+  ip address 192.168.161.162 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.161 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.628
+  ip address 192.168.161.178 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.177 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.629
+  ip address 192.168.161.194 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.630
+  ip address 192.168.161.210 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.209 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.631
+  ip address 192.168.161.226 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.161.225 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.632
+  ip address 192.168.161.242 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.161.241 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.633
+  ip address 192.168.162.2 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.162.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.634
+  ip address 192.168.162.18 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.162.17 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.635
+  ip address 192.168.162.34 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.162.33 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.636
+  ip address 192.168.162.50 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.162.49 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.637
+  ip address 192.168.162.66 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.162.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.638
+  ip address 192.168.162.82 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.162.81 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.639
+  ip address 192.168.162.98 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.162.97 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.640
+  ip address 192.168.162.114 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.162.113 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.801
+  ip address 192.168.120.2 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.120.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.802
+  ip address 192.168.120.34 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.120.33 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.803
+  ip address 192.168.120.66 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.120.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.804
+  ip address 192.168.120.98 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.120.97 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.48.43 
+  ip helper-address 10.119.48.44 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.805
+  ip address 192.168.120.130 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.120.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.806
+  ip address 192.168.120.162 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.120.161 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.807
+  ip address 192.168.120.194 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.120.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.808
+  ip address 192.168.120.226 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.120.225 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.809
+  ip address 192.168.121.2 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.121.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.810
+  ip address 192.168.121.34 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.121.33 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.811
+  ip address 192.168.121.66 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.121.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.812
+  ip address 192.168.121.98 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.121.97 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.48.43 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.813
+  ip address 192.168.121.130 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.121.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.814
+  ip address 192.168.121.162 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.121.161 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.815
+  ip address 192.168.121.194 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.121.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.816
+  ip address 192.168.121.226 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.121.225 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.817
+  ip address 192.168.122.2 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.122.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.818
+  ip address 192.168.122.34 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.122.33 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.819
+  ip address 192.168.122.66 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.122.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.820
+  ip address 192.168.122.98 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.122.97 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.821
+  ip address 192.168.122.130 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.122.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.822
+  ip address 192.168.122.162 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.122.161 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.823
+  ip address 192.168.122.194 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.122.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.824
+  ip address 192.168.122.226 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.122.225 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.825
+  ip address 192.168.123.2 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.123.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.826
+  ip address 192.168.123.34 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.123.33 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.827
+  ip address 192.168.123.66 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.123.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.828
+  ip address 192.168.123.98 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.123.97 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.48.43 
+  ip helper-address 10.119.48.44 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.829
+  ip address 192.168.123.130 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.123.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.830
+  ip address 192.168.123.162 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.123.161 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.831
+  ip address 192.168.123.194 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.123.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.48.43 
+  ip helper-address 10.119.48.44 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.832
+  ip address 192.168.123.226 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.123.225 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.833
+  ip address 192.168.124.2 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.124.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.834
+  ip address 192.168.124.34 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.124.33 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.835
+  ip address 192.168.124.66 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.124.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.836
+  ip address 192.168.124.98 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.124.97 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.837
+  ip address 192.168.124.130 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.124.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.838
+  ip address 192.168.124.162 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.124.161 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.839
+  ip address 192.168.124.194 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.124.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.840
+  ip address 192.168.124.226 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.124.225 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.901
+  ip address 192.168.100.2 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.902
+  ip address 192.168.100.18 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.17 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.903
+  ip address 192.168.100.34 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.33 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.904
+  ip address 192.168.100.50 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.49 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.905
+  ip address 192.168.100.66 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.906
+  ip address 192.168.100.82 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.81 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.907
+  ip address 192.168.100.98 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.97 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.908
+  ip address 192.168.100.114 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.113 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.909
+  ip address 192.168.100.130 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.910
+  ip address 192.168.100.146 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.145 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.911
+  ip address 192.168.100.162 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.161 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.912
+  ip address 192.168.100.178 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.177 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.913
+  ip address 192.168.100.194 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.914
+  ip address 192.168.100.210 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.209 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.915
+  ip address 192.168.100.226 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.100.225 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.916
+  ip address 192.168.100.242 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.100.241 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.917
+  ip address 192.168.101.2 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.918
+  ip address 192.168.101.18 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.17 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.919
+  ip address 192.168.101.34 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.33 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.920
+  ip address 192.168.101.50 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.49 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.921
+  ip address 192.168.101.66 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.922
+  ip address 192.168.101.82 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.81 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.923
+  ip address 192.168.101.98 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.97 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.924
+  ip address 192.168.101.114 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.113 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.925
+  ip address 192.168.101.130 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.926
+  ip address 192.168.101.146 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.145 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.927
+  ip address 192.168.101.162 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.161 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.928
+  ip address 192.168.101.178 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.177 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.929
+  ip address 192.168.101.194 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.193 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.930
+  ip address 192.168.101.210 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.209 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.931
+  ip address 192.168.101.226 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.101.225 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.932
+  ip address 192.168.101.242 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.101.241 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.933
+  ip address 192.168.102.2 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.102.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.934
+  ip address 192.168.102.18 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.102.17 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.935
+  ip address 192.168.102.34 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.102.33 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.936
+  ip address 192.168.102.50 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.102.49 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.937
+  ip address 192.168.102.66 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.102.65 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.938
+  ip address 192.168.102.82 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.102.81 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.939
+  ip address 192.168.102.98 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.102.97 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.940
+  ip address 192.168.102.114 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.102.113 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.941
+  ip address 192.168.102.130 255.255.255.240 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.102.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.942
+  ip address 192.168.102.146 255.255.255.240 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.102.145 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1001
+  ip address 10.119.135.2 255.255.255.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.135.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1002
+  ip address 10.119.140.2 255.255.255.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.140.1 
+  vrrp priority 2 200
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.48.43 
+  ip helper-address 10.119.48.44 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1003
+  ip address 10.119.138.2 255.255.254.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.138.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  ip helper-address 10.119.128.68 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1004
+  ip address 10.119.132.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.132.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1005
+  ip address 10.119.134.2 255.255.255.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.134.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  ip helper-address 10.119.128.68 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1006
+  ip address 10.119.128.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.128.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.48.43 
+  ip helper-address 10.119.48.44 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1007
+  ip address 10.119.141.130 255.255.255.128 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.141.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1008
+  ip address 10.119.130.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.130.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  ip helper-address 10.119.128.68 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1009
+  ip address 10.119.141.2 255.255.255.128 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.141.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1010
+  ip address 10.119.136.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.136.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1011
+  ip address 10.119.142.2 255.255.255.128 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.142.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1012
+  ip address 10.119.143.2 255.255.255.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.143.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1013
+  ip address 10.119.142.130 255.255.255.128 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.142.129 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1014
+  ip address 10.119.144.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.144.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no shutdown
+  exit
+ interface vlan.0.1015
+  ip address 10.119.154.2 255.255.255.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.154.1 
+  vrrp priority 1 150
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no shutdown
+  exit
+ interface vlan.0.1016
+  ip address 10.119.204.2 255.255.255.128 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.204.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.110.0.140 
+  ip helper-address 10.110.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1018
+  ip address 10.119.0.194 255.255.255.192 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.0.193 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1019
+  ip address 10.119.153.2 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.153.1 
+  vrrp priority 1 150
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no shutdown
+  exit
+ interface vlan.0.1020
+  ip address 10.119.200.2 255.255.254.0 primary
+  ip policy route-map traffic
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.200.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1021
+  ip address 10.119.216.2 255.255.255.192 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.216.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1050
+  ip address 10.119.202.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.202.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1100
+  ip address 192.168.164.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.164.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1101
+  ip address 192.168.166.2 255.255.254.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.166.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1102
+  ip address 192.168.169.2 255.255.255.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.169.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1103
+  ip address 10.119.152.2 255.255.255.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.152.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1200
+  ip address 192.168.254.2 255.255.255.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.254.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1201
+  ip address 192.168.255.2 255.255.255.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.255.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1210
+  exit
+ interface vlan.0.1300
+  description "WAN IP_VPN"
+  ip address 10.119.255.141 255.255.255.248 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.255.140 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1313
+  description "Customer Legacy LAN"
+  ip address 10.119.48.1 255.255.248.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.48.2 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.1400
+  ip address 192.168.170.2 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.170.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1401
+  ip address 192.168.170.34 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.170.33 
+  vrrp priority 1 150
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no shutdown
+  exit
+ interface vlan.0.1402
+  ip address 192.168.170.66 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.170.65 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1403
+  ip address 192.168.170.98 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.170.97 
+  vrrp priority 1 150
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no shutdown
+  exit
+ interface vlan.0.1404
+  ip address 192.168.170.130 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.170.129 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1405
+  ip address 192.168.170.162 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.170.161 
+  vrrp priority 1 150
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no shutdown
+  exit
+ interface vlan.0.1406
+  ip address 192.168.170.194 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.170.193 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.1407
+  ip address 192.168.170.226 255.255.255.224 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.170.225 
+  vrrp priority 1 150
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no shutdown
+  exit
+ interface vlan.0.1408
+  ip address 192.168.171.2 255.255.255.224 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.171.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no shutdown
+  exit
+ interface vlan.0.2001
+  ip address 10.119.224.2 255.255.252.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 10.119.224.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.2002
+  ip address 10.119.228.2 255.255.252.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.228.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  ip helper-address 10.119.0.140 
+  ip helper-address 10.119.0.200 
+  no ip proxy-arp
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.2050
+  no ip redirects
+  exit
+ interface vlan.0.3000
+  ip address 192.168.87.2 255.255.255.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.87.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3001
+  ip address 192.168.92.2 255.255.255.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.92.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3002
+  ip address 192.168.90.2 255.255.254.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.90.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3003
+  ip address 192.168.84.2 255.255.254.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.84.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3004
+  ip address 192.168.86.2 255.255.255.0 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.86.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3005
+  ip address 192.168.80.2 255.255.254.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.80.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3006
+  ip address 192.168.93.130 255.255.255.128 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.93.129 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3007
+  ip address 192.168.82.2 255.255.254.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.82.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 8
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3008
+  ip address 192.168.93.2 255.255.255.128 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.93.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3009
+  ip address 192.168.88.2 255.255.254.0 primary
+  vrrp create 1 v2-IPv4
+  vrrp address 1 192.168.88.1 
+  vrrp priority 1 150
+  vrrp interface-up-delay 1 10
+  vrrp preempt-delay 1 90
+  vrrp accept-mode 1
+  vrrp enable 1
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3010
+  ip address 192.168.94.2 255.255.255.128 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.94.1 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3012
+  ip address 192.168.94.130 255.255.255.128 primary
+  vrrp create 2 v2-IPv4
+  vrrp address 2 192.168.94.129 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface vlan.0.3020
+  ip address 10.119.0.61 255.255.255.224 primary
+  ip ospf priority 1
+  vrrp create 2 v2-IPv4
+  vrrp address 2 10.119.0.60 
+  vrrp accept-mode 2
+  vrrp enable 2
+  no ip redirects
+  ipv6 forwarding
+  no shutdown
+  exit
+ interface tun.0.1
+  tunnel destination 192.168.169.4
+  tunnel mode gre l2 ge.3.4
+  tunnel mirror enable
+  tunnel source 1.1.1.1
+  no shutdown
+  exit
+!
+# Static routes configured on routed interfaces
+ ip route 0.0.0.0/0 10.119.255.137 interface vlan.0.1300 1
+ ip route 10.119.34.0/24 10.119.48.5 interface vlan.0.1313 1
+ ip route 10.119.45.0/25 10.119.48.5 interface vlan.0.1313 1
+ ip route 10.119.45.128/25 10.119.48.5 interface vlan.0.1313 1
+ ip route 10.119.101.192/28 10.119.48.5 interface vlan.0.1313 1
+ ip route 10.119.160.0/24 10.119.48.5 interface vlan.0.1313 1
+ ip route 10.119.214.0/24 10.119.0.35 interface vlan.0.3020 1
+ ip route 10.119.215.0/24 10.119.0.35 interface vlan.0.3020 1
+ ip route 172.16.8.0/22 10.119.0.35 interface vlan.0.3020 1
+ ip route 172.16.12.0/22 10.119.0.35 interface vlan.0.3020 1
+ ip route 172.16.16.0/22 10.119.0.35 interface vlan.0.3020 1
+ ip route 172.16.31.0/24 10.119.0.35 interface vlan.0.3020 1
+ ip route 172.16.223.0/24 10.119.48.5 interface vlan.0.1313 1
+ ip route 172.19.0.0/29 10.119.48.5 interface vlan.0.1313 1
+ ip route 172.19.0.8/29 10.119.48.5 interface vlan.0.1313 1
+ ip route 172.19.0.16/29 10.119.48.5 interface vlan.0.1313 1
+ ip route 172.19.0.32/28 10.119.48.5 interface vlan.0.1313 1
+ ip route 192.168.128.0/24 10.119.48.5 interface vlan.0.1313 1
+ ip route 192.168.250.0/28 10.119.48.5 interface vlan.0.1313 1
+!
+!
+!
+ router ospf 1
+  router-id 0.119.255.141
+  network 10.119.0.32 0.0.0.31 area 0.0.0.0
+  network 10.119.255.136 0.0.0.7 area 0.0.0.0
+  network 172.30.0.0 0.0.255.255 area 0.0.0.0
+  redistribute connected
+  redistribute static
+  log-adjacency
+  passive-interface default
+  no passive-interface vlan.0.1300 
+  no passive-interface vlan.0.3020 
+  exit
+!
+!
+
+# cfm modal configuration
+!
+!
+!
+!
+exit
+!
+# ip dns
+!
+# ip interface
+set ip interface vlan.0.901 default
+!
+# antispoof
+!
+# authentication
+!
+# auto-tracking
+!
+# banner
+set banner login \"\n\n----------------------------------------------------------------------------------------\n\t      W A R N I N G - THIS IS A PRIVATE COMPUTER SYSTEM.\n----------------------------------------------------------------------------------------\nThis computer system including all related equipment, network devices\n(specifically including Internet access), are provided only for authorized use.\nUnauthorised access of a computer constitutes an offence under the\nComputer Misuse Act 1990.\nAll computer systems may be monitored for all lawful purposes, including to ensure\nthat their use is authorized, for management of the system, to facilitate protection\nagainst unauthorized access, and to verify security procedures, survivability and\noperational security. Monitoring includes active attacks by authorized personnel and\ntheir entities to test or verify the security of the system. During monitoring,\ninformation may be examined, recorded, copied and used for authorized purposes.\nAll information including personal information, placed on or sent over this system\nmay be monitored. Uses of this system, authorized or unauthorized, constitutes\nconsent to monitoring of this system.\nUnauthorized use may subject you to criminal prosecution. Evidence of any such\nunauthorized use collected during monitoring may be used for administrative, criminal or\nother adverse action.\n\n\nUse of this system constitutes consent to monitoring for these purposes.\nIf you understand this message and have been authorised to use this\nsystem please enter your username and password below to continue this\nsession. Otherwise, you must disconnect from this session immediately.\n----------------------------------------------------------------------------------------\n\n\"\n
+!
+# boot high-availability
+!
+# bridge
+!
+# cdp
+set cdp state enable
+!
+# cep
+!
+# chassis
+!
+# ciscodp
+set ciscodp status enable
+!
+# cli
+!
+# console
+!
+# cos t-config
+!
+# cos t-resource
+!
+# cos reference
+!
+# cos settings
+!
+# cos state
+!
+# cos syslog
+!
+# dcb appPri
+!
+# dcb cn
+!
+# dcb pfc
+!
+# dot1x
+!
+# flowlimit
+!
+# forcelinkdown
+set forcelinkdown enable
+!
+# garp
+!
+# gvrp
+!
+# history
+!
+# igmp
+!
+# inlinepower
+!
+# lacp
+set lacp aadminkey lag.0.9 911
+set lacp aadminkey lag.0.10 1011
+set lacp aadminkey lag.0.11 1111
+set lacp aadminkey lag.0.13 1311
+set lacp aadminkey lag.0.15 1511
+set lacp aadminkey lag.0.16 1611
+set lacp aadminkey lag.0.17 1711
+set lacp aadminkey lag.0.18 1811
+set lacp aadminkey lag.0.19 1911
+set lacp aadminkey lag.0.20 2011
+set lacp aadminkey lag.0.22 2211
+set lacp aadminkey lag.0.23 2311
+set lacp aadminkey lag.0.24 2411
+set lacp aadminkey lag.0.25 2511
+set lacp aadminkey lag.0.26 2611
+set lacp aadminkey lag.0.27 2711
+set lacp aadminkey lag.0.28 2811
+set lacp aadminkey lag.0.33 3311
+set lacp aadminkey lag.0.34 3411
+set lacp aadminkey lag.0.35 3511
+set lacp aadminkey lag.0.38 3811
+set lacp aadminkey lag.0.39 3911
+set lacp aadminkey lag.0.40 4011
+set lacp aadminkey lag.0.41 4111
+set lacp aadminkey lag.0.42 4211
+set lacp aadminkey lag.0.43 4311
+set lacp aadminkey lag.0.44 4411
+set lacp aadminkey lag.0.45 4511
+set lacp aadminkey lag.0.46 4611
+set lacp aadminkey lag.0.47 4711
+set lacp aadminkey lag.0.48 4811
+set lacp aadminkey lag.0.55 5521
+set lacp aadminkey lag.0.56 5621
+set lacp aadminkey lag.0.57 5721
+set lacp aadminkey lag.0.58 5821
+set lacp aadminkey lag.0.59 5921
+set lacp aadminkey lag.0.60 6021
+set lacp aadminkey lag.0.61 1
+set lacp aadminkey lag.0.73 7311
+set lacp aadminkey lag.0.120 120
+set lacp singletlag enable
+!
+# length
+set length 32 default
+!
+# limits
+!
+# line-editor
+!
+# link-state
+!
+# linkflap
+!
+# lldp
+!
+# logging
+set logging server 1 ip-addr 10.119.60.6 state enable
+set logging application SNMP level 7
+set logging application Spantree level 8
+set logging application Security level 7
+set logging local console disable file enable sfile disable
+!
+# logout
+set logout 0 default
+!
+# mac
+!
+# macauthentication
+!
+# maclock
+!
+# macsec
+!
+# mgmt-auth-notify
+!
+# mirror
+set mirror create 1
+set mirror 1 mirrorN 15
+set mirror ts ge.3.4 1
+!
+# mld
+!
+# movedaddrtrap
+set movedaddrtrap enable
+set movedaddrtrap lag.0.1 enable
+set movedaddrtrap lag.0.2 enable
+set movedaddrtrap lag.0.3 enable
+set movedaddrtrap lag.0.4 enable
+set movedaddrtrap lag.0.5 enable
+set movedaddrtrap lag.0.6 enable
+set movedaddrtrap lag.0.7 enable
+set movedaddrtrap lag.0.8 enable
+set movedaddrtrap lag.0.9 enable
+set movedaddrtrap lag.0.10 enable
+set movedaddrtrap lag.0.11 enable
+set movedaddrtrap lag.0.12 enable
+set movedaddrtrap lag.0.13 enable
+set movedaddrtrap lag.0.14 enable
+set movedaddrtrap lag.0.15 enable
+set movedaddrtrap lag.0.16 enable
+set movedaddrtrap lag.0.17 enable
+set movedaddrtrap lag.0.18 enable
+set movedaddrtrap lag.0.19 enable
+set movedaddrtrap lag.0.20 enable
+set movedaddrtrap lag.0.21 enable
+set movedaddrtrap lag.0.22 enable
+set movedaddrtrap lag.0.23 enable
+set movedaddrtrap lag.0.24 enable
+set movedaddrtrap lag.0.25 enable
+set movedaddrtrap lag.0.26 enable
+set movedaddrtrap lag.0.27 enable
+set movedaddrtrap lag.0.28 enable
+set movedaddrtrap lag.0.29 enable
+set movedaddrtrap lag.0.30 enable
+set movedaddrtrap lag.0.31 enable
+set movedaddrtrap lag.0.32 enable
+set movedaddrtrap lag.0.33 enable
+set movedaddrtrap lag.0.34 enable
+set movedaddrtrap lag.0.35 enable
+set movedaddrtrap lag.0.36 enable
+set movedaddrtrap lag.0.37 enable
+set movedaddrtrap lag.0.38 enable
+set movedaddrtrap lag.0.39 enable
+set movedaddrtrap lag.0.40 enable
+set movedaddrtrap lag.0.41 enable
+set movedaddrtrap lag.0.42 enable
+set movedaddrtrap lag.0.43 enable
+set movedaddrtrap lag.0.44 enable
+set movedaddrtrap lag.0.45 enable
+set movedaddrtrap lag.0.46 enable
+set movedaddrtrap lag.0.47 enable
+set movedaddrtrap lag.0.48 enable
+set movedaddrtrap lag.0.49 enable
+set movedaddrtrap lag.0.50 enable
+set movedaddrtrap lag.0.51 enable
+set movedaddrtrap lag.0.52 enable
+set movedaddrtrap lag.0.53 enable
+set movedaddrtrap lag.0.54 enable
+set movedaddrtrap lag.0.55 enable
+set movedaddrtrap lag.0.56 enable
+set movedaddrtrap lag.0.57 enable
+set movedaddrtrap lag.0.58 enable
+set movedaddrtrap lag.0.59 enable
+set movedaddrtrap lag.0.60 enable
+set movedaddrtrap lag.0.61 enable
+set movedaddrtrap lag.0.62 enable
+set movedaddrtrap lag.0.63 enable
+set movedaddrtrap lag.0.64 enable
+set movedaddrtrap lag.0.65 enable
+set movedaddrtrap lag.0.66 enable
+set movedaddrtrap lag.0.67 enable
+set movedaddrtrap lag.0.68 enable
+set movedaddrtrap lag.0.69 enable
+set movedaddrtrap lag.0.70 enable
+set movedaddrtrap lag.0.71 enable
+set movedaddrtrap lag.0.72 enable
+set movedaddrtrap lag.0.73 enable
+set movedaddrtrap lag.0.74 enable
+set movedaddrtrap lag.0.75 enable
+set movedaddrtrap lag.0.76 enable
+set movedaddrtrap lag.0.77 enable
+set movedaddrtrap lag.0.78 enable
+set movedaddrtrap lag.0.79 enable
+set movedaddrtrap lag.0.80 enable
+set movedaddrtrap lag.0.81 enable
+set movedaddrtrap lag.0.82 enable
+set movedaddrtrap lag.0.83 enable
+set movedaddrtrap lag.0.84 enable
+set movedaddrtrap lag.0.85 enable
+set movedaddrtrap lag.0.86 enable
+set movedaddrtrap lag.0.87 enable
+set movedaddrtrap lag.0.88 enable
+set movedaddrtrap lag.0.89 enable
+set movedaddrtrap lag.0.90 enable
+set movedaddrtrap lag.0.91 enable
+set movedaddrtrap lag.0.92 enable
+set movedaddrtrap lag.0.93 enable
+set movedaddrtrap lag.0.94 enable
+set movedaddrtrap lag.0.95 enable
+set movedaddrtrap lag.0.96 enable
+set movedaddrtrap lag.0.97 enable
+set movedaddrtrap lag.0.98 enable
+set movedaddrtrap lag.0.99 enable
+set movedaddrtrap lag.0.100 enable
+set movedaddrtrap lag.0.101 enable
+set movedaddrtrap lag.0.102 enable
+set movedaddrtrap lag.0.103 enable
+set movedaddrtrap lag.0.104 enable
+set movedaddrtrap lag.0.105 enable
+set movedaddrtrap lag.0.106 enable
+set movedaddrtrap lag.0.107 enable
+set movedaddrtrap lag.0.108 enable
+set movedaddrtrap lag.0.109 enable
+set movedaddrtrap lag.0.110 enable
+set movedaddrtrap lag.0.111 enable
+set movedaddrtrap lag.0.112 enable
+set movedaddrtrap lag.0.113 enable
+set movedaddrtrap lag.0.114 enable
+set movedaddrtrap lag.0.115 enable
+set movedaddrtrap lag.0.116 enable
+set movedaddrtrap lag.0.117 enable
+set movedaddrtrap lag.0.118 enable
+set movedaddrtrap lag.0.119 enable
+set movedaddrtrap lag.0.120 enable
+set movedaddrtrap lag.0.121 enable
+set movedaddrtrap lag.0.122 enable
+set movedaddrtrap lag.0.123 enable
+set movedaddrtrap lag.0.124 enable
+set movedaddrtrap lag.0.125 enable
+set movedaddrtrap lag.0.126 enable
+set movedaddrtrap lag.0.127 enable
+set movedaddrtrap lag.0.128 enable
+set movedaddrtrap lag.0.129 enable
+set movedaddrtrap lag.0.130 enable
+set movedaddrtrap lag.0.131 enable
+set movedaddrtrap lag.0.132 enable
+set movedaddrtrap lag.0.133 enable
+set movedaddrtrap lag.0.134 enable
+set movedaddrtrap lag.0.135 enable
+set movedaddrtrap lag.0.136 enable
+set movedaddrtrap lag.0.137 enable
+set movedaddrtrap lag.0.138 enable
+set movedaddrtrap lag.0.139 enable
+set movedaddrtrap lag.0.140 enable
+set movedaddrtrap lag.0.141 enable
+set movedaddrtrap lag.0.142 enable
+set movedaddrtrap lag.0.143 enable
+set movedaddrtrap lag.0.144 enable
+set movedaddrtrap lag.0.145 enable
+set movedaddrtrap lag.0.146 enable
+set movedaddrtrap lag.0.147 enable
+set movedaddrtrap lag.0.148 enable
+set movedaddrtrap lag.0.149 enable
+set movedaddrtrap lag.0.150 enable
+set movedaddrtrap lag.0.151 enable
+set movedaddrtrap lag.0.152 enable
+set movedaddrtrap lag.0.153 enable
+set movedaddrtrap lag.0.154 enable
+set movedaddrtrap lag.0.155 enable
+set movedaddrtrap lag.0.156 enable
+set movedaddrtrap lag.0.157 enable
+set movedaddrtrap lag.0.158 enable
+set movedaddrtrap lag.0.159 enable
+set movedaddrtrap lag.0.160 enable
+set movedaddrtrap lag.0.161 enable
+set movedaddrtrap lag.0.162 enable
+set movedaddrtrap lag.0.163 enable
+set movedaddrtrap lag.0.164 enable
+set movedaddrtrap lag.0.165 enable
+set movedaddrtrap lag.0.166 enable
+set movedaddrtrap lag.0.167 enable
+set movedaddrtrap lag.0.168 enable
+set movedaddrtrap lag.0.169 enable
+set movedaddrtrap lag.0.170 enable
+set movedaddrtrap lag.0.171 enable
+set movedaddrtrap lag.0.172 enable
+set movedaddrtrap lag.0.173 enable
+set movedaddrtrap lag.0.174 enable
+set movedaddrtrap lag.0.175 enable
+set movedaddrtrap lag.0.176 enable
+set movedaddrtrap lag.0.177 enable
+set movedaddrtrap lag.0.178 enable
+set movedaddrtrap lag.0.179 enable
+set movedaddrtrap lag.0.180 enable
+set movedaddrtrap lag.0.181 enable
+set movedaddrtrap lag.0.182 enable
+set movedaddrtrap lag.0.183 enable
+set movedaddrtrap lag.0.184 enable
+set movedaddrtrap lag.0.185 enable
+set movedaddrtrap lag.0.186 enable
+set movedaddrtrap lag.0.187 enable
+set movedaddrtrap lag.0.188 enable
+set movedaddrtrap lag.0.189 enable
+set movedaddrtrap lag.0.190 enable
+set movedaddrtrap tbp.0.1 enable
+set movedaddrtrap tbp.0.2 enable
+set movedaddrtrap tbp.0.3 enable
+set movedaddrtrap tbp.0.4 enable
+set movedaddrtrap tbp.0.5 enable
+set movedaddrtrap tbp.0.6 enable
+set movedaddrtrap tbp.0.7 enable
+set movedaddrtrap tbp.0.8 enable
+set movedaddrtrap tbp.0.9 enable
+set movedaddrtrap tbp.0.10 enable
+set movedaddrtrap tbp.0.11 enable
+set movedaddrtrap tbp.0.12 enable
+set movedaddrtrap tbp.0.13 enable
+set movedaddrtrap tbp.0.14 enable
+set movedaddrtrap tbp.0.15 enable
+set movedaddrtrap tbp.0.16 enable
+set movedaddrtrap tbp.0.17 enable
+set movedaddrtrap tbp.0.18 enable
+set movedaddrtrap tbp.0.19 enable
+set movedaddrtrap tbp.0.20 enable
+set movedaddrtrap tbp.0.21 enable
+set movedaddrtrap tbp.0.22 enable
+set movedaddrtrap tbp.0.23 enable
+set movedaddrtrap tbp.0.24 enable
+set movedaddrtrap tbp.0.25 enable
+set movedaddrtrap tbp.0.26 enable
+set movedaddrtrap tbp.0.27 enable
+set movedaddrtrap tbp.0.28 enable
+set movedaddrtrap tbp.0.29 enable
+set movedaddrtrap tbp.0.30 enable
+set movedaddrtrap tbp.0.31 enable
+set movedaddrtrap tbp.0.32 enable
+set movedaddrtrap tbp.0.33 enable
+set movedaddrtrap tbp.0.34 enable
+set movedaddrtrap tbp.0.35 enable
+set movedaddrtrap tbp.0.36 enable
+set movedaddrtrap tbp.0.37 enable
+set movedaddrtrap tbp.0.38 enable
+set movedaddrtrap tbp.0.39 enable
+set movedaddrtrap tbp.0.40 enable
+set movedaddrtrap tbp.0.41 enable
+set movedaddrtrap tbp.0.42 enable
+set movedaddrtrap tbp.0.43 enable
+set movedaddrtrap tbp.0.44 enable
+set movedaddrtrap tbp.0.45 enable
+set movedaddrtrap tbp.0.46 enable
+set movedaddrtrap tbp.0.47 enable
+set movedaddrtrap tbp.0.48 enable
+set movedaddrtrap tbp.0.49 enable
+set movedaddrtrap tbp.0.50 enable
+set movedaddrtrap tbp.0.51 enable
+set movedaddrtrap tbp.0.52 enable
+set movedaddrtrap tbp.0.53 enable
+set movedaddrtrap tbp.0.54 enable
+set movedaddrtrap tbp.0.55 enable
+set movedaddrtrap tbp.0.56 enable
+set movedaddrtrap tbp.0.57 enable
+set movedaddrtrap tbp.0.58 enable
+set movedaddrtrap tbp.0.59 enable
+set movedaddrtrap tbp.0.60 enable
+set movedaddrtrap tbp.0.61 enable
+set movedaddrtrap tbp.0.62 enable
+set movedaddrtrap ge.3.1 enable
+set movedaddrtrap ge.3.2 enable
+set movedaddrtrap ge.3.3 enable
+set movedaddrtrap ge.3.4 enable
+set movedaddrtrap ge.3.5 enable
+set movedaddrtrap ge.3.6 enable
+set movedaddrtrap ge.3.7 enable
+set movedaddrtrap ge.3.8 enable
+set movedaddrtrap ge.3.9 enable
+set movedaddrtrap ge.3.10 enable
+set movedaddrtrap ge.3.11 enable
+set movedaddrtrap ge.3.12 enable
+set movedaddrtrap ge.3.13 enable
+set movedaddrtrap ge.3.14 enable
+set movedaddrtrap ge.3.15 enable
+set movedaddrtrap ge.3.16 enable
+set movedaddrtrap ge.3.17 enable
+set movedaddrtrap ge.3.18 enable
+set movedaddrtrap ge.3.19 enable
+set movedaddrtrap ge.3.20 enable
+set movedaddrtrap ge.3.21 enable
+set movedaddrtrap ge.3.22 enable
+set movedaddrtrap ge.3.23 enable
+set movedaddrtrap ge.3.24 enable
+set movedaddrtrap ge.3.25 enable
+set movedaddrtrap ge.3.26 enable
+set movedaddrtrap ge.3.27 enable
+set movedaddrtrap ge.3.28 enable
+set movedaddrtrap ge.3.29 enable
+set movedaddrtrap ge.3.30 enable
+set movedaddrtrap ge.3.31 enable
+set movedaddrtrap ge.3.32 enable
+set movedaddrtrap ge.3.33 enable
+set movedaddrtrap ge.3.34 enable
+set movedaddrtrap ge.3.35 enable
+set movedaddrtrap ge.3.36 enable
+set movedaddrtrap ge.3.37 enable
+set movedaddrtrap ge.3.38 enable
+set movedaddrtrap ge.3.39 enable
+set movedaddrtrap ge.3.40 enable
+set movedaddrtrap ge.3.41 enable
+set movedaddrtrap ge.3.42 enable
+set movedaddrtrap ge.3.43 enable
+set movedaddrtrap ge.3.44 enable
+set movedaddrtrap ge.3.45 enable
+set movedaddrtrap ge.3.46 enable
+set movedaddrtrap ge.3.47 enable
+set movedaddrtrap ge.3.48 enable
+set movedaddrtrap tg.3.101 enable
+set movedaddrtrap tg.3.102 enable
+set movedaddrtrap tg.3.103 enable
+set movedaddrtrap tg.3.104 enable
+set movedaddrtrap tg.3.201 enable
+set movedaddrtrap tg.3.202 enable
+set movedaddrtrap tg.3.203 enable
+set movedaddrtrap tg.3.204 enable
+set movedaddrtrap tg.4.1 enable
+set movedaddrtrap tg.4.2 enable
+set movedaddrtrap tg.4.3 enable
+set movedaddrtrap tg.4.4 enable
+set movedaddrtrap tg.4.5 enable
+set movedaddrtrap tg.4.6 enable
+set movedaddrtrap tg.4.7 enable
+set movedaddrtrap tg.4.8 enable
+set movedaddrtrap ge.4.101 enable
+set movedaddrtrap ge.4.102 enable
+set movedaddrtrap ge.4.103 enable
+set movedaddrtrap ge.4.104 enable
+set movedaddrtrap ge.4.105 enable
+set movedaddrtrap ge.4.106 enable
+set movedaddrtrap ge.4.107 enable
+set movedaddrtrap ge.4.108 enable
+set movedaddrtrap ge.4.109 enable
+set movedaddrtrap ge.4.110 enable
+set movedaddrtrap ge.4.111 enable
+set movedaddrtrap ge.4.112 enable
+set movedaddrtrap tg.4.201 enable
+set movedaddrtrap tg.4.202 enable
+set movedaddrtrap tg.4.203 enable
+set movedaddrtrap tg.4.204 enable
+set movedaddrtrap tg.5.1 enable
+set movedaddrtrap tg.5.2 enable
+set movedaddrtrap tg.5.3 enable
+set movedaddrtrap tg.5.4 enable
+set movedaddrtrap tg.5.5 enable
+set movedaddrtrap tg.5.6 enable
+set movedaddrtrap tg.5.7 enable
+set movedaddrtrap tg.5.8 enable
+set movedaddrtrap ge.5.101 enable
+set movedaddrtrap ge.5.102 enable
+set movedaddrtrap ge.5.103 enable
+set movedaddrtrap ge.5.104 enable
+set movedaddrtrap ge.5.105 enable
+set movedaddrtrap ge.5.106 enable
+set movedaddrtrap ge.5.107 enable
+set movedaddrtrap ge.5.108 enable
+set movedaddrtrap ge.5.109 enable
+set movedaddrtrap ge.5.110 enable
+set movedaddrtrap ge.5.111 enable
+set movedaddrtrap ge.5.112 enable
+set movedaddrtrap tg.5.201 enable
+set movedaddrtrap tg.5.202 enable
+set movedaddrtrap tg.5.203 enable
+set movedaddrtrap tg.5.204 enable
+!
+# mrp
+!
+# mtu
+!
+# multiauth
+!
+# mvrp
+!
+# neighbors
+!
+# netflow
+set netflow ext-interval 1
+set netflow ext-destination 192.168.169.4 2055
+set netflow ext-version 9
+set netflow t lag.0.9-11,13,15-20,22,25-26,33-34,38-41 enable rx
+set netflow t tg.3.101,104,203-204 enable rx
+set netflow t tg.4.2-5,202-204 enable rx
+set netflow t tg.5.2-5 enable rx
+set netflow template refresh-rate 30 timeout 1
+set netflow cache enable
+!
+# newaddrtrap
+!
+# nodealias
+!
+# physical
+!
+# pki
+!
+# policy
+set policy profile 1 name Application pvid-status enable pvid 4095 mirror-destination 1
+set policy rule admin-profile t lag.0.9 mask 16 t-string lag.0.9 admin-pid 1
+set policy rule admin-profile t lag.0.10 mask 16 t-string lag.0.10 admin-pid 1
+set policy rule admin-profile t lag.0.11 mask 16 t-string lag.0.11 admin-pid 1
+set policy rule admin-profile t lag.0.13 mask 16 t-string lag.0.13 admin-pid 1
+set policy rule admin-profile t lag.0.15 mask 16 t-string lag.0.15 admin-pid 1
+set policy rule admin-profile t lag.0.16 mask 16 t-string lag.0.16 admin-pid 1
+set policy rule admin-profile t lag.0.17 mask 16 t-string lag.0.17 admin-pid 1
+set policy rule admin-profile t lag.0.18 mask 16 t-string lag.0.18 admin-pid 1
+set policy rule admin-profile t lag.0.19 mask 16 t-string lag.0.19 admin-pid 1
+set policy rule admin-profile t lag.0.20 mask 16 t-string lag.0.20 admin-pid 1
+set policy rule admin-profile t lag.0.22 mask 16 t-string lag.0.22 admin-pid 1
+set policy rule admin-profile t lag.0.25 mask 16 t-string lag.0.25 admin-pid 1
+set policy rule admin-profile t lag.0.26 mask 16 t-string lag.0.26 admin-pid 1
+set policy rule admin-profile t lag.0.33 mask 16 t-string lag.0.33 admin-pid 1
+set policy rule admin-profile t lag.0.34 mask 16 t-string lag.0.34 admin-pid 1
+set policy rule admin-profile t lag.0.38 mask 16 t-string lag.0.38 admin-pid 1
+set policy rule admin-profile t lag.0.39 mask 16 t-string lag.0.39 admin-pid 1
+set policy rule admin-profile t lag.0.40 mask 16 t-string lag.0.40 admin-pid 1
+set policy rule admin-profile t lag.0.41 mask 16 t-string lag.0.41 admin-pid 1
+set policy rule admin-profile t tg.3.101 mask 16 t-string tg.3.101 admin-pid 1
+set policy rule admin-profile t tg.3.104 mask 16 t-string tg.3.104 admin-pid 1
+set policy rule admin-profile t tg.3.203 mask 16 t-string tg.3.203 admin-pid 1
+set policy rule admin-profile t tg.3.204 mask 16 t-string tg.3.204 admin-pid 1
+set policy rule admin-profile t tg.4.2 mask 16 t-string tg.4.2 admin-pid 1
+set policy rule admin-profile t tg.4.3 mask 16 t-string tg.4.3 admin-pid 1
+set policy rule admin-profile t tg.4.4 mask 16 t-string tg.4.4 admin-pid 1
+set policy rule admin-profile t tg.4.5 mask 16 t-string tg.4.5 admin-pid 1
+set policy rule admin-profile t tg.4.7 mask 16 t-string tg.4.7 admin-pid 1
+set policy rule admin-profile t tg.4.202 mask 16 t-string tg.4.202 admin-pid 1
+set policy rule admin-profile t tg.4.203 mask 16 t-string tg.4.203 admin-pid 1
+set policy rule admin-profile t tg.4.204 mask 16 t-string tg.4.204 admin-pid 1
+set policy rule admin-profile t tg.5.2 mask 16 t-string tg.5.2 admin-pid 1
+set policy rule admin-profile t tg.5.3 mask 16 t-string tg.5.3 admin-pid 1
+set policy rule admin-profile t tg.5.4 mask 16 t-string tg.5.4 admin-pid 1
+set policy rule admin-profile t tg.5.5 mask 16 t-string tg.5.5 admin-pid 1
+set policy rule admin-profile t tg.5.7 mask 16 t-string tg.5.7 admin-pid 1
+!
+# t
+set t disable vlan.0.1210,2050
+set t disable ge.3.9,11,25
+set t disable tg.3.202
+set t disable ge.4.109,111
+set t alias vlan.0.100 LAN-Firewall
+set t alias vlan.0.1300 "WAN IP_VPN"
+set t alias vlan.0.1313 "Customer Legacy LAN"
+set t alias ge.3.1 "Uplink st101G-lag.0.9"
+set t alias ge.3.2 "Uplink st107A-lag.0.20"
+set t alias ge.3.3 "Uplink st101H-lag.0.10"
+set t alias ge.3.4 "Extreme Analytics - DO NOT USE"
+set t alias ge.3.5 "Uplink st106A-lag.0.19"
+set t alias ge.3.6 "Uplink st106A-lag.0.19"
+set t alias ge.3.7 "Uplink st134A-lag.0.16"
+set t alias ge.3.8 "Uplink st135A-lag.0.39"
+set t alias ge.3.9 "Uplink st117A-lag.0.25"
+set t alias ge.3.10 "Uplink st104A-lag.0.17"
+set t alias ge.3.11 "Uplink st118A-lag.0.26"
+set t alias ge.3.12 "Uplink to LANst1MGMT-03 - ge.2.48"
+set t alias ge.3.14 "Uplink st105A-lag.0.18"
+set t alias ge.3.15 "Uplink st137A"
+set t alias ge.3.18 "Uplink st130A-lag.0.34"
+set t alias ge.3.20 "Uplink st101J-lag.0.11"
+set t alias ge.3.21 "Uplink st129A-lag.0.33"
+set t alias ge.3.22 "Uplink st136A-lag.0.35"
+set t alias ge.3.24 "Uplink to LANst1MGMT-36 - ge.1.48"
+set t alias ge.3.25 "3808 SSA ISL 4.1"
+set t alias ge.3.26 Legacy
+set t alias ge.3.27 "3808 SSA ISL 4.2"
+set t alias ge.3.28 Legacy
+set t alias ge.3.29 "Uplink st1C28-lag.0.15"
+set t alias ge.3.30 Darktrace01_10.119.129.100
+set t alias ge.3.31 "Uplink st102B"
+set t alias ge.3.32 Building-19-ICT-t-ge.1.23
+set t alias ge.3.34 "Lag.0.61 Uplink to B19"
+set t alias ge.3.36 Legacy
+set t alias ge.3.38 "Uplink st132A-lag.0.73"
+set t alias ge.3.40 "Uplink st132A-lag.0.73"
+set t alias ge.3.41 "Uplink st152A-lag.0.40"
+set t alias ge.3.42 "Uplink st151A-lag.0.38"
+set t alias ge.3.43 "Uplink st153A-lag.0.41"
+set t alias ge.3.44 "Uplink st153A-lag.0.41"
+set t alias ge.3.45 Core02
+set t alias ge.3.46 Core02
+set t alias ge.3.47 Firewall
+set t alias ge.3.48 CP-GuestWiFi-Eth1-05
+set t alias tg.3.101 "Uplink st102A"
+set t alias tg.3.102 "Cloudian LANMEL01"
+set t alias tg.3.103 WAN-5Gb-SECONDARY
+set t alias tg.3.104 "Uplink st128A"
+set t alias tg.3.201 Core01
+set t alias tg.3.202 "Cloudian LANMEL02"
+set t alias tg.3.203 "Uplink st101G"
+set t alias tg.3.204 "Uplink st123A"
+set t alias ge.4.101 "Uplink st101G-lag.0.9"
+set t alias ge.4.102 "Uplink st107A-lag.0.20"
+set t alias ge.4.103 "Uplink st101H-lag.0.10"
+set t alias ge.4.105 "Uplink st106A-lag.0.19"
+set t alias ge.4.106 "Uplink st106A-lag.0.19"
+set t alias ge.4.107 "Uplink st1C28-lag.0.15"
+set t alias ge.4.108 "Uplink st135A-lag.0.39"
+set t alias ge.4.109 "Uplink st117A-lag.0.25"
+set t alias ge.4.110 "Uplink st104A-lag.0.17"
+set t alias ge.4.111 "Uplink st118A-lag.0.26"
+set t alias tg.4.1 Core01
+set t alias tg.4.2 "Uplink Sw13C1 SSA"
+set t alias tg.4.3 "Uplink st101A"
+set t alias tg.4.4 "Uplink st101C"
+set t alias tg.4.5 "Uplink st101E"
+set t alias tg.4.7 "Uplink Sw236A SSA"
+set t alias tg.4.8 "CR1 CR2 L3"
+set t alias tg.4.201 Core01
+set t alias tg.4.202 "Uplink to St3C1"
+set t alias tg.4.203 "Uplink Sw101G"
+set t alias tg.4.204 "Uplink St125A"
+set t alias ge.5.101 "Uplink PBL-c50"
+set t alias ge.5.102 "Uplink st105A-lag.0.18"
+set t alias ge.5.103 "Uplink st132A-lag.0.48"
+set t alias ge.5.104 "Uplink st134A-lag.0.16"
+set t alias ge.5.106 "Uplink st130A-lag.0.34"
+set t alias ge.5.108 "Uplink st101J-lag.0.11"
+set t alias ge.5.109 "Uplink st129A-lag.0.33"
+set t alias ge.5.110 "Uplink st152A-lag.0.40"
+set t alias ge.5.111 "Uplink st151A-lag.0.38"
+set t alias ge.5.112 "Uplink st136A-lag.0.35"
+set t alias tg.5.1 Core02-lag.0.120
+set t alias tg.5.2 "Uplink Sw23C1 SSA"
+set t alias tg.5.3 "Uplink st101B"
+set t alias tg.5.4 "Uplink st101D"
+set t alias tg.5.5 "Uplink st101F"
+set t alias tg.5.6 "Uplink Mellanox Switch 02-12"
+set t alias tg.5.7 "Uplink Sw136A SSA"
+set t alias tg.8.1 "Dell M1000e Chassis-B36-Rack5-SwA1"
+set t alias tg.8.2 "Dell M1000e Chassis-B36-Rack5-SwA1"
+set t alias tg.8.3 "Dell M1000e Chassis-B36-Rack5-SwA2"
+set t alias tg.8.4 "Dell M1000e Chassis-B36-Rack5-SwA2"
+set t alias tg.8.5 "Dell M1000e Chassis-B36-Rack4-SwA2"
+set t alias tg.8.6 "Dell M1000e Chassis-B36-Rack4-SwA2"
+set t alias tg.8.7 "Dell M1000e Chassis-B36-Rack4-SwA2"
+set t alias tg.8.8 "Dell M1000e Chassis-B36-Rack4-SwA1"
+set t alias tg.8.9 "Dell M1000e Chassis-Rm3-Rack6-SwA1"
+set t alias tg.8.10 "Dell M1000e Chassis-Rm3-Rack6-SwA1"
+set t alias tg.8.11 "Dell M1000e Chassis-Rm3-Rack6-SwA2"
+set t alias tg.8.12 "Dell M1000e Chassis-Rm3-Rack6-SwA2"
+set t alias lag.0.1 "3808 SSA LAG"
+set t alias lag.0.9 "Uplink st101G"
+set t alias lag.0.10 "Uplink st101H"
+set t alias lag.0.11 "Uplink st101J"
+set t alias lag.0.15 "Uplink st1C28"
+set t alias lag.0.16 "Uplink st134A"
+set t alias lag.0.17 "Uplink st104A"
+set t alias lag.0.18 "Uplink st105A"
+set t alias lag.0.19 "Uplink st106A"
+set t alias lag.0.20 "Uplink st107A"
+set t alias lag.0.22 "Uplink st111A"
+set t alias lag.0.25 "Uplink st117A"
+set t alias lag.0.26 "Uplink st118A"
+set t alias lag.0.33 "Uplink st129A"
+set t alias lag.0.34 "Uplink st130A"
+set t alias lag.0.35 "Uplink st136A"
+set t alias lag.0.38 "Uplink st151A"
+set t alias lag.0.39 "Uplink st135A"
+set t alias lag.0.40 "Uplink st152A"
+set t alias lag.0.41 "Uplink st153A"
+set t alias lag.0.55 "Dell M1000e Chassis-B36-Rack5-A1"
+set t alias lag.0.56 "Dell M1000e Chassis-B36-Rack5-A2"
+set t alias lag.0.57 "Dell M1000e Chassis-B36-Rack4-A2"
+set t alias lag.0.58 "Dell M1000e Chassis-B36-Rack4-A1"
+set t alias lag.0.59 "Dell M1000e Chassis-R3-Rack6-A1"
+set t alias lag.0.60 "Dell M1000e Chassis-R3-Rack6-A2"
+set t alias lag.0.73 "Uplink st132A"
+set t jumbo enable ge.3.4
+set t lacp t ge.3.1 aadminkey 911
+set t lacp t ge.3.2 aadminkey 2011
+set t lacp t ge.3.3 aadminkey 1011
+set t lacp t ge.3.5 aadminkey 1911
+set t lacp t ge.3.6 aadminkey 1911
+set t lacp t ge.3.7 aadminkey 1611
+set t lacp t ge.3.8 aadminkey 3911
+set t lacp t ge.3.9 aadminkey 2511
+set t lacp t ge.3.10 aadminkey 1711
+set t lacp t ge.3.11 aadminkey 2611
+set t lacp t ge.3.14 aadminkey 1811
+set t lacp t ge.3.16 aadminkey 4811
+set t lacp t ge.3.18 aadminkey 3411
+set t lacp t ge.3.19 aadminkey 2411
+set t lacp t ge.3.20 aadminkey 1111
+set t lacp t ge.3.21 aadminkey 3311
+set t lacp t ge.3.22 aadminkey 3511
+set t lacp t ge.3.29 aadminkey 1511
+set t lacp t ge.3.31 aadminkey 1311
+set t lacp t ge.3.34 aadminkey 1
+set t lacp t ge.3.38 aadminkey 7311
+set t lacp t ge.3.40 aadminkey 7311
+set t lacp t ge.3.41 aadminkey 4011
+set t lacp t ge.3.42 aadminkey 3811
+set t lacp t ge.3.43 aadminkey 4111
+set t lacp t ge.3.44 aadminkey 4111
+set t lacp t tg.3.201 aadminkey 120
+set t lacp t ge.4.101 aadminkey 911
+set t lacp t ge.4.102 aadminkey 2011
+set t lacp t ge.4.103 aadminkey 1011
+set t lacp t ge.4.105 aadminkey 1911
+set t lacp t ge.4.106 aadminkey 1911
+set t lacp t ge.4.107 aadminkey 1511
+set t lacp t ge.4.108 aadminkey 3911
+set t lacp t ge.4.109 aadminkey 2511
+set t lacp t ge.4.110 aadminkey 1711
+set t lacp t ge.4.111 aadminkey 2611
+set t lacp t ge.4.112 aadminkey 2711
+set t lacp t tg.4.1 aadminkey 120
+set t lacp t tg.4.201 aadminkey 120
+set t lacp t ge.5.102 aadminkey 1811
+set t lacp t ge.5.103 aadminkey 4811
+set t lacp t ge.5.104 aadminkey 1611
+set t lacp t ge.5.106 aadminkey 3411
+set t lacp t ge.5.107 aadminkey 2411
+set t lacp t ge.5.108 aadminkey 1111
+set t lacp t ge.5.109 aadminkey 3311
+set t lacp t ge.5.110 aadminkey 4011
+set t lacp t ge.5.111 aadminkey 3811
+set t lacp t ge.5.112 aadminkey 3511
+set t lacp t tg.5.1 aadminkey 120
+set t lacp t tg.5.201 aadminkey 2811
+set t lacp t tg.8.1 aadminkey 5521
+set t lacp t tg.8.2 aadminkey 5521
+set t lacp t tg.8.3 aadminkey 5621
+set t lacp t tg.8.4 aadminkey 5621
+set t lacp t tg.8.5 aadminkey 5721
+set t lacp t tg.8.6 aadminkey 5721
+set t lacp t tg.8.7 aadminkey 5821
+set t lacp t tg.8.8 aadminkey 5821
+set t lacp t tg.8.9 aadminkey 5921
+set t lacp t tg.8.10 aadminkey 5921
+set t lacp t tg.8.11 aadminkey 6021
+set t lacp t tg.8.12 aadminkey 6021
+set t lacp t tg.8.13 aadminkey 2811
+set t lacp t ge.3.1 aadminstate lacptimeout
+set t lacp t ge.3.2 aadminstate lacptimeout
+set t lacp t ge.3.3 aadminstate lacptimeout
+set t lacp t ge.3.5 aadminstate lacptimeout
+set t lacp t ge.3.6 aadminstate lacptimeout
+set t lacp t ge.3.7 aadminstate lacptimeout
+set t lacp t ge.3.8 aadminstate lacptimeout
+set t lacp t ge.3.9 aadminstate lacptimeout
+set t lacp t ge.3.10 aadminstate lacptimeout
+set t lacp t ge.3.11 aadminstate lacptimeout
+set t lacp t ge.3.12 aadminstate lacptimeout
+set t lacp t ge.3.14 aadminstate lacptimeout
+set t lacp t ge.3.16 aadminstate lacptimeout
+set t lacp t ge.3.18 aadminstate lacptimeout
+set t lacp t ge.3.19 aadminstate lacptimeout
+set t lacp t ge.3.20 aadminstate lacptimeout
+set t lacp t ge.3.21 aadminstate lacptimeout
+set t lacp t ge.3.22 aadminstate lacptimeout
+set t lacp t ge.3.29 aadminstate lacptimeout
+set t lacp t ge.3.31 aadminstate lacptimeout
+set t lacp t ge.3.32 aadminstate lacptimeout
+set t lacp t ge.3.41 aadminstate lacptimeout
+set t lacp t ge.3.42 aadminstate lacptimeout
+set t lacp t ge.3.43 aadminstate lacptimeout
+set t lacp t ge.3.44 aadminstate lacptimeout
+set t lacp t tg.3.201 aadminstate lacptimeout
+set t lacp t ge.4.101 aadminstate lacptimeout
+set t lacp t ge.4.102 aadminstate lacptimeout
+set t lacp t ge.4.103 aadminstate lacptimeout
+set t lacp t ge.4.105 aadminstate lacptimeout
+set t lacp t ge.4.106 aadminstate lacptimeout
+set t lacp t ge.4.107 aadminstate lacptimeout
+set t lacp t ge.4.108 aadminstate lacptimeout
+set t lacp t ge.4.109 aadminstate lacptimeout
+set t lacp t ge.4.110 aadminstate lacptimeout
+set t lacp t ge.4.111 aadminstate lacptimeout
+set t lacp t ge.4.112 aadminstate lacptimeout
+set t lacp t tg.4.1 aadminstate lacptimeout
+set t lacp t tg.4.201 aadminstate lacptimeout
+set t lacp t ge.5.102 aadminstate lacptimeout
+set t lacp t ge.5.103 aadminstate lacptimeout
+set t lacp t ge.5.104 aadminstate lacptimeout
+set t lacp t ge.5.106 aadminstate lacptimeout
+set t lacp t ge.5.107 aadminstate lacptimeout
+set t lacp t ge.5.108 aadminstate lacptimeout
+set t lacp t ge.5.109 aadminstate lacptimeout
+set t lacp t ge.5.110 aadminstate lacptimeout
+set t lacp t ge.5.111 aadminstate lacptimeout
+set t lacp t ge.5.112 aadminstate lacptimeout
+set t lacp t tg.5.1 aadminstate lacptimeout
+set t lacp t tg.8.1 aadminstate lacptimeout
+set t lacp t tg.8.2 aadminstate lacptimeout
+set t lacp t tg.8.3 aadminstate lacptimeout
+set t lacp t tg.8.4 aadminstate lacptimeout
+set t lacp t tg.8.5 aadminstate lacptimeout
+set t lacp t tg.8.6 aadminstate lacptimeout
+set t lacp t tg.8.7 aadminstate lacptimeout
+set t lacp t tg.8.8 aadminstate lacptimeout
+set t lacp t tg.8.9 aadminstate lacptimeout
+set t lacp t tg.8.10 aadminstate lacptimeout
+set t lacp t tg.8.11 aadminstate lacptimeout
+set t lacp t tg.8.12 aadminstate lacptimeout
+set t lacp t ge.3.1 enable
+set t lacp t ge.3.2 enable
+set t lacp t ge.3.3 enable
+set t lacp t ge.3.5 enable
+set t lacp t ge.3.6 enable
+set t lacp t ge.3.7 enable
+set t lacp t ge.3.8 enable
+set t lacp t ge.3.9 enable
+set t lacp t ge.3.10 enable
+set t lacp t ge.3.11 enable
+set t lacp t ge.3.12 enable
+set t lacp t ge.3.14 enable
+set t lacp t ge.3.16 enable
+set t lacp t ge.3.18 enable
+set t lacp t ge.3.19 enable
+set t lacp t ge.3.20 enable
+set t lacp t ge.3.21 enable
+set t lacp t ge.3.22 enable
+set t lacp t ge.3.25 enable
+set t lacp t ge.3.27 enable
+set t lacp t ge.3.29 enable
+set t lacp t ge.3.31 enable
+set t lacp t ge.3.34 enable
+set t lacp t ge.3.38 enable
+set t lacp t ge.3.40 enable
+set t lacp t ge.3.41 enable
+set t lacp t ge.3.42 enable
+set t lacp t ge.3.43 enable
+set t lacp t ge.3.44 enable
+set t lacp t tg.3.201 enable
+set t lacp t ge.4.101 enable
+set t lacp t ge.4.102 enable
+set t lacp t ge.4.103 enable
+set t lacp t ge.4.105 enable
+set t lacp t ge.4.106 enable
+set t lacp t ge.4.107 enable
+set t lacp t ge.4.108 enable
+set t lacp t ge.4.109 enable
+set t lacp t ge.4.110 enable
+set t lacp t ge.4.111 enable
+set t lacp t ge.4.112 enable
+set t lacp t tg.4.1 enable
+set t lacp t tg.4.6 enable
+set t lacp t tg.4.201 enable
+set t lacp t tg.4.203 enable
+set t lacp t tg.4.204 enable
+set t lacp t ge.5.102 enable
+set t lacp t ge.5.103 enable
+set t lacp t ge.5.104 enable
+set t lacp t ge.5.106 enable
+set t lacp t ge.5.107 enable
+set t lacp t ge.5.108 enable
+set t lacp t ge.5.109 enable
+set t lacp t ge.5.110 enable
+set t lacp t ge.5.111 enable
+set t lacp t ge.5.112 enable
+set t lacp t tg.5.1 enable
+set t lacp t tg.5.8 enable
+set t lacp t tg.5.201 enable
+set t lacp t tg.5.202 enable
+set t lacp t tg.5.203 enable
+set t lacp t tg.5.204 enable
+set t lacp t tg.8.1 enable
+set t lacp t tg.8.2 enable
+set t lacp t tg.8.3 enable
+set t lacp t tg.8.4 enable
+set t lacp t tg.8.5 enable
+set t lacp t tg.8.6 enable
+set t lacp t tg.8.7 enable
+set t lacp t tg.8.8 enable
+set t lacp t tg.8.9 enable
+set t lacp t tg.8.10 enable
+set t lacp t tg.8.11 enable
+set t lacp t tg.8.12 enable
+set t lacp t tg.8.13 enable
+set t lacp t tg.8.14 enable
+set t mirroring create ge.3.1 ge.3.30 both
+set t mirroring create ge.3.2 ge.3.30 both
+set t mirroring create ge.3.3 ge.3.30 both
+set t mirroring create ge.3.5 ge.3.30 both
+set t mirroring create ge.3.6 ge.3.30 both
+set t mirroring create ge.3.7 ge.3.30 both
+set t mirroring create ge.3.8 ge.3.30 both
+set t mirroring create ge.3.9 ge.3.30 both
+set t mirroring create ge.3.10 ge.3.30 both
+set t mirroring create ge.3.11 ge.3.30 both
+set t mirroring create ge.3.13 ge.3.30 both
+set t mirroring create ge.3.14 ge.3.30 both
+set t mirroring create ge.3.18 ge.3.30 both
+set t mirroring create ge.3.20 ge.3.30 both
+set t mirroring create ge.3.21 ge.3.30 both
+set t mirroring create ge.3.22 ge.3.30 both
+set t mirroring create ge.3.29 ge.3.30 both
+set t mirroring create ge.3.38 ge.3.30 both
+set t mirroring create ge.3.40 ge.3.30 both
+set t mirroring create ge.3.41 ge.3.30 both
+set t mirroring create ge.3.42 ge.3.30 both
+set t mirroring create ge.3.43 ge.3.30 both
+set t mirroring create ge.3.44 ge.3.30 both
+set t mirroring create tg.3.201 ge.3.30 both
+set t mirroring create ge.4.101 ge.3.30 both
+set t mirroring create ge.4.102 ge.3.30 both
+set t mirroring create ge.4.103 ge.3.30 both
+set t mirroring create ge.4.107 ge.3.30 both
+set t mirroring create ge.4.108 ge.3.30 both
+set t mirroring create ge.4.109 ge.3.30 both
+set t mirroring create ge.4.110 ge.3.30 both
+set t mirroring create ge.4.111 ge.3.30 both
+set t mirroring create tg.4.1 ge.3.30 both
+set t mirroring create tg.4.201 ge.3.30 both
+set t mirroring create ge.5.101 ge.3.30 both
+set t mirroring create ge.5.102 ge.3.30 both
+set t mirroring create ge.5.104 ge.3.30 both
+set t mirroring create ge.5.106 ge.3.30 both
+set t mirroring create ge.5.108 ge.3.30 both
+set t mirroring create ge.5.109 ge.3.30 both
+set t mirroring create ge.5.110 ge.3.30 both
+set t mirroring create ge.5.111 ge.3.30 both
+set t mirroring create ge.5.112 ge.3.30 both
+set t mirroring create tg.5.1 ge.3.30 both
+set t mirroring create lag.0.1 ge.3.30 both
+set t mirroring create lag.0.9 ge.3.30 both
+set t mirroring create lag.0.10 ge.3.30 both
+set t mirroring create lag.0.11 ge.3.30 both
+set t mirroring create lag.0.15 ge.3.30 both
+set t mirroring create lag.0.16 ge.3.30 both
+set t mirroring create lag.0.17 ge.3.30 both
+set t mirroring create lag.0.18 ge.3.30 both
+set t mirroring create lag.0.19 ge.3.30 both
+set t mirroring create lag.0.20 ge.3.30 both
+set t mirroring create lag.0.22 ge.3.30 both
+set t mirroring create lag.0.25 ge.3.30 both
+set t mirroring create lag.0.26 ge.3.30 both
+set t mirroring create lag.0.33 ge.3.30 both
+set t mirroring create lag.0.34 ge.3.30 both
+set t mirroring create lag.0.35 ge.3.30 both
+set t mirroring create lag.0.38 ge.3.30 both
+set t mirroring create lag.0.39 ge.3.30 both
+set t mirroring create lag.0.40 ge.3.30 both
+set t mirroring create lag.0.41 ge.3.30 both
+set t mirroring create lag.0.73 ge.3.30 both
+set t mirroring create lag.0.120 ge.3.30 both
+set t vlan lag.0.1 1313
+set t vlan lag.0.28 1006
+set t vlan lag.0.61 935
+set t vlan ge.3.25 1313
+set t vlan ge.3.27 1313
+set t vlan ge.3.28 1313
+set t vlan ge.3.30 1006
+set t vlan ge.3.32 935
+set t vlan ge.3.34 1313
+set t vlan ge.3.36 1313
+set t vlan ge.3.48 499
+set t vlan tg.3.103 1300
+set t vlan tg.4.8 30
+set t vlan tg.5.201 1006
+set t vlan tg.5.202 1006
+set t vlan tg.8.13 1006
+set t vlan tg.8.14 1006
+!
+# prompt
+set prompt LANCore01
+!
+# pwa
+!
+# quarantine-agent
+!
+# radius
+set radius enable
+set radius server 1 10.119.129.161 1812 :96aa7991e75e623aaba851ca9273ed1554153ed6f9b8bd0d79254080:
+set radius realm management-access 1
+set radius attribute mgmt password mschapv2
+!
+# radius-snooping
+!
+# rmon alarm
+!
+# rmon capture
+!
+# rmon channel
+!
+# rmon event
+!
+# rmon filter
+!
+# rmon history
+!
+# rmon host
+!
+# rmon matrix
+!
+# rmon stats
+!
+# rmon topN
+!
+# security
+!
+# smon
+!
+# snmp
+set snmp access groupRW security-model v1 exact read All write All notify All
+set snmp access groupRW security-model v2c exact read All write All notify All
+set snmp community public
+set snmp group groupRW user public security-model v1
+set snmp group groupRW user C0untry security-model v1
+set snmp group groupRW user public security-model v2c
+set snmp notify TVInformTag tag TVInformTag inform
+set snmp notify TVTrapTag tag TVTrapTag
+set snmp targetaddr TV9e7780f4TV1public 10.119.60.6 param TV1public taglist TVTrapTag
+set snmp targetparams TV1public user public security-model v2c message-processing v2c
+set snmp user user authentication sha :424838280b99d1778bfd691cc38f8b8eedb62a23dadd2579b5570974: privacy :d3e2cc7cd66c5b59141d30952b1f88edddc2a4674e079bc4bc2ba3c9:
+set snmp view viewname All subtree 1
+set snmp view viewname All subtree 0.0
+!
+# sntp
+set sntp client unicast
+set sntp server 10.119.60.86
+!
+# spantree
+set spantree msti sid 101 create
+set spantree msti sid 102 create
+set spantree mstcfgid cfgname MST-HPA-
+set spantree priority 0 0
+set spantree priority 4096 101
+set spantree priority 8192 102
+set spantree mstmap 401,403,405,407,409,411,413,415,417,419,499,501,601,603,605,607,609,611,613,615,617,619,621,623,625,627,629,631,633 sid 101
+set spantree mstmap 635,637,639,641,643,645,647,649,651,653,655,657,659,661,663,801,803,805,807,809,811,813,815,817,819,821,823,825,827 sid 101
+set spantree mstmap 829,831,833,835,837,839,841,843,845,847,849,851,853,855,857,859,861,863,901,903,905,907,909,911,913,915,917,919,921 sid 101
+set spantree mstmap 923,925,927,929,931,933,935,937,939,941,943,945,947,949,951,953,955,957,959,961,963,1001,1003,1005,1007,1009,1011 sid 101
+set spantree mstmap 1013,1015,1017,1019,1021,1023,1025,1027,1029,1031,1033,1035,1037,1039,1041,1043,1045,1047,1049,1101,1103,1105,1107 sid 101
+set spantree mstmap 1109,1111,1113,1201,1203,1205,1207,1209,1211,1213,1301,1303,1305,1307,1309,1311,1313,1401,1403,1405,1407,1409,1411 sid 101
+set spantree mstmap 1413,1415,1417,1419,1421,1423,1425,1427,1429,1431,1433,1435,1437,1439,1441,1443,1445,1447,1449,2001,2003,2005,2007 sid 101
+set spantree mstmap 2009,2011,2013,2015,2017,2019,2021,2023,2025,2027,2029,2031,2033,2035,2037,2039,2041,2043,2045,2047,2049,3001,3003 sid 101
+set spantree mstmap 3005,3007,3009,3011,3013,3015,3017,3019 sid 101
+set spantree mstmap 402,404,406,408,410,412,414,416,418,420,600,602,604,606,608,610,612,614,616,618,620,622,624,626,628,630,632,634,636 sid 102
+set spantree mstmap 638,640,642,644,646,648,650,652,654,656,658,660,662,802,804,806,808,810,812,814,816,818,820,822,824,826,828,830,832 sid 102
+set spantree mstmap 834,836,838,840,842,844,846,848,850,852,854,856,858,860,862,864,902,904,906,908,910,912,914,916,918,920,922,924,926 sid 102
+set spantree mstmap 928,930,932,934,936,938,940,942,944,946,948,950,952,954,956,958,960,962,964,1002,1004,1006,1008,1010,1012,1014,1016 sid 102
+set spantree mstmap 1018,1020,1022,1024,1026,1028,1030,1032,1034,1036,1038,1040,1042,1044,1046,1048,1050,1100,1102,1104,1106,1108,1110 sid 102
+set spantree mstmap 1112,1200,1202,1204,1206,1208,1210,1212,1300,1302,1304,1306,1308,1310,1312,1400,1402,1404,1406,1408,1410,1412,1414 sid 102
+set spantree mstmap 1416,1418,1420,1422,1424,1426,1428,1430,1432,1434,1436,1438,1440,1442,1444,1446,1448,1450,2000,2002,2004,2006,2008 sid 102
+set spantree mstmap 2010,2012,2014,2016,2018,2020,2022,2024,2026,2028,2030,2032,2034,2036,2038,2040,2042,2044,2046,2048,2050,3000,3002 sid 102
+set spantree mstmap 3004,3006,3008,3010,3012,3014,3016,3018,3020 sid 102
+set spantree lp tg.3.101 enable sid 0
+set spantree lp tg.3.101 enable sid 101
+set spantree lp tg.3.101 enable sid 102
+set spantree lpcapablepartner tg.3.101 true
+set spantree lptrapenable enable
+set spantree disputedbpduthreshold 10
+set spantree tenable tg.3.201 disable
+set spantree tenable tg.4.1 disable
+set spantree tenable tg.4.201 disable
+set spantree tenable tg.5.1 disable
+set spantree tadmin lag.0.1 disable
+set spantree tadmin ge.3.27 disable
+set spantree tadmin tg.4.8 disable
+set spantree adminpathcost lag.0.9 50 sid 0
+set spantree adminpathcost lag.0.10 50 sid 0
+set spantree adminpathcost lag.0.11 50 sid 0
+set spantree adminpathcost lag.0.13 50 sid 0
+set spantree adminpathcost lag.0.15 50 sid 0
+set spantree adminpathcost lag.0.16 50 sid 0
+set spantree adminpathcost lag.0.17 50 sid 0
+set spantree adminpathcost lag.0.18 50 sid 0
+set spantree adminpathcost lag.0.19 50 sid 0
+set spantree adminpathcost lag.0.20 50 sid 0
+set spantree adminpathcost lag.0.22 50 sid 0
+set spantree adminpathcost lag.0.23 50 sid 0
+set spantree adminpathcost lag.0.24 50 sid 0
+set spantree adminpathcost lag.0.25 50 sid 0
+set spantree adminpathcost lag.0.26 50 sid 0
+set spantree adminpathcost lag.0.27 50 sid 0
+set spantree adminpathcost lag.0.34 50 sid 0
+set spantree adminpathcost lag.0.120 10 sid 0
+set spantree adminpathcost tg.3.101 50 sid 0
+set spantree adminpathcost tg.3.102 50 sid 0
+set spantree adminpathcost tg.3.103 50 sid 0
+set spantree adminpathcost tg.3.104 50 sid 0
+set spantree adminpathcost tg.3.202 50 sid 0
+set spantree adminpathcost tg.3.203 50 sid 0
+set spantree adminpathcost tg.3.204 50 sid 0
+set spantree adminpathcost tg.4.2 50 sid 0
+set spantree adminpathcost tg.4.3 50 sid 0
+set spantree adminpathcost tg.4.4 50 sid 0
+set spantree adminpathcost tg.4.5 50 sid 0
+set spantree adminpathcost tg.4.202 50 sid 0
+set spantree adminpathcost tg.4.203 50 sid 0
+set spantree adminpathcost tg.4.204 50 sid 0
+set spantree adminpathcost tg.5.2 50 sid 0
+set spantree adminpathcost tg.5.3 50 sid 0
+set spantree adminpathcost tg.5.4 50 sid 0
+set spantree adminpathcost tg.5.5 50 sid 0
+set spantree adminpathcost tg.5.6 50 sid 0
+set spantree adminpathcost lag.0.9 50 sid 101
+set spantree adminpathcost lag.0.10 50 sid 101
+set spantree adminpathcost lag.0.11 50 sid 101
+set spantree adminpathcost lag.0.13 50 sid 101
+set spantree adminpathcost lag.0.15 50 sid 101
+set spantree adminpathcost lag.0.16 50 sid 101
+set spantree adminpathcost lag.0.17 50 sid 101
+set spantree adminpathcost lag.0.18 50 sid 101
+set spantree adminpathcost lag.0.19 50 sid 101
+set spantree adminpathcost lag.0.20 50 sid 101
+set spantree adminpathcost lag.0.22 50 sid 101
+set spantree adminpathcost lag.0.23 50 sid 101
+set spantree adminpathcost lag.0.24 50 sid 101
+set spantree adminpathcost lag.0.25 50 sid 101
+set spantree adminpathcost lag.0.26 50 sid 101
+set spantree adminpathcost lag.0.27 50 sid 101
+set spantree adminpathcost lag.0.34 50 sid 101
+set spantree adminpathcost lag.0.120 10 sid 101
+set spantree adminpathcost tg.3.101 50 sid 101
+set spantree adminpathcost tg.3.102 50 sid 101
+set spantree adminpathcost tg.3.103 50 sid 101
+set spantree adminpathcost tg.3.104 50 sid 101
+set spantree adminpathcost tg.3.202 50 sid 101
+set spantree adminpathcost tg.3.203 50 sid 101
+set spantree adminpathcost tg.3.204 50 sid 101
+set spantree adminpathcost tg.4.2 50 sid 101
+set spantree adminpathcost tg.4.3 50 sid 101
+set spantree adminpathcost tg.4.4 50 sid 101
+set spantree adminpathcost tg.4.5 50 sid 101
+set spantree adminpathcost tg.4.202 50 sid 101
+set spantree adminpathcost tg.4.203 50 sid 101
+set spantree adminpathcost tg.4.204 50 sid 101
+set spantree adminpathcost tg.5.2 50 sid 101
+set spantree adminpathcost tg.5.3 50 sid 101
+set spantree adminpathcost tg.5.4 50 sid 101
+set spantree adminpathcost tg.5.5 50 sid 101
+set spantree adminpathcost tg.5.6 50 sid 101
+set spantree adminpathcost lag.0.9 100 sid 102
+set spantree adminpathcost lag.0.10 100 sid 102
+set spantree adminpathcost lag.0.11 100 sid 102
+set spantree adminpathcost lag.0.13 100 sid 102
+set spantree adminpathcost lag.0.15 100 sid 102
+set spantree adminpathcost lag.0.16 100 sid 102
+set spantree adminpathcost lag.0.17 100 sid 102
+set spantree adminpathcost lag.0.18 100 sid 102
+set spantree adminpathcost lag.0.19 100 sid 102
+set spantree adminpathcost lag.0.20 100 sid 102
+set spantree adminpathcost lag.0.22 100 sid 102
+set spantree adminpathcost lag.0.23 100 sid 102
+set spantree adminpathcost lag.0.24 100 sid 102
+set spantree adminpathcost lag.0.25 100 sid 102
+set spantree adminpathcost lag.0.26 100 sid 102
+set spantree adminpathcost lag.0.27 100 sid 102
+set spantree adminpathcost lag.0.34 100 sid 102
+set spantree adminpathcost lag.0.120 10 sid 102
+set spantree adminpathcost tg.3.101 100 sid 102
+set spantree adminpathcost tg.3.102 100 sid 102
+set spantree adminpathcost tg.3.103 100 sid 102
+set spantree adminpathcost tg.3.104 100 sid 102
+set spantree adminpathcost tg.3.202 100 sid 102
+set spantree adminpathcost tg.3.203 100 sid 102
+set spantree adminpathcost tg.3.204 100 sid 102
+set spantree adminpathcost tg.4.2 100 sid 102
+set spantree adminpathcost tg.4.3 100 sid 102
+set spantree adminpathcost tg.4.4 100 sid 102
+set spantree adminpathcost tg.4.5 100 sid 102
+set spantree adminpathcost tg.4.202 50 sid 102
+set spantree adminpathcost tg.4.203 100 sid 102
+set spantree adminpathcost tg.4.204 100 sid 102
+set spantree adminpathcost tg.5.2 100 sid 102
+set spantree adminpathcost tg.5.3 100 sid 102
+set spantree adminpathcost tg.5.4 100 sid 102
+set spantree adminpathcost tg.5.5 100 sid 102
+set spantree adminpathcost tg.5.6 100 sid 102
+!
+# spb
+!
+# ssh
+set ssh enabled
+!
+# summertime
+set summertime enable
+set summertime recurring last Sunday March 2:00 last Sunday October 2:00
+!
+# tacacs
+!
+# telnet
+!
+# timezone
+set timezone GMT 0 0
+!
+# tunnel
+!
+# vlan
+set vlan create 10,30,60-70,100-1213,1300-1313,1400-1450,2000-2050,3000-3020
+set vlan name 10 "CR1 ISL"
+set vlan name 30 "CR1 CR2 L3"
+set vlan name 401 "Power House GUEST LAN"
+set vlan name 402 "Servers - DC2 GUEST LAN"
+set vlan name 403 "Building 23/28 GUEST LAN"
+set vlan name 404 "Building 1 East GUEST LAN"
+set vlan name 405 "South Cluster GUEST LAN"
+set vlan name 406 "Servers - DC1 GUEST LAN"
+set vlan name 407 "Stores GUEST LAN"
+set vlan name 408 "Building 1 West GUEST LAN"
+set vlan name 409 "BIG SciHub GUEST LAN"
+set vlan name 410 "Building 2 GUEST LAN"
+set vlan name 411 "Off Site - FPP GUEST LAN"
+set vlan name 412 "Spare GUEST-1"
+set vlan name 413 "Off Site - DSTL GUEST LAN"
+set vlan name 414 "Spare GUEST-2"
+set vlan name 499 "Guest WLAN"
+set vlan name 501 "Campus MGMT"
+set vlan name 601 "LANCore01  SECURITY"
+set vlan name 602 "LANCore02  SECURITY"
+set vlan name 603 "LANCAB01A  SECURITY"
+set vlan name 604 "LANCAB01B  SECURITY"
+set vlan name 605 "LANCAB01C  SECURITY"
+set vlan name 606 "LANCAB01D  SECURITY"
+set vlan name 607 "LANCAB01E  SECURITY"
+set vlan name 608 "LANCAB01F  SECURITY"
+set vlan name 609 "LANCAB01G  SECURITY"
+set vlan name 610 "LANCAB01H  SECURITY"
+set vlan name 611 "LANCAB01J  SECURITY"
+set vlan name 612 "LANCAB02A  SECURITY"
+set vlan name 613 "LANCAB02B  SECURITY"
+set vlan name 614 "LANCABC28  SECURITY"
+set vlan name 615 "LANCAB34A  SECURITY"
+set vlan name 616 "LANCAB04A  SECURITY"
+set vlan name 617 "LANCAB05A  SECURITY"
+set vlan name 618 "LANCAB06A  SECURITY"
+set vlan name 619 "LANCAB07A  SECURITY"
+set vlan name 621 "LANCAB11A  SECURITY"
+set vlan name 622 "LANCABH12  SECURITY"
+set vlan name 623 "LANCAB14A  SECURITY"
+set vlan name 624 "LANCAB17A  SECURITY"
+set vlan name 625 "LANCAB18A  SECURITY"
+set vlan name 626 "LANCAB19A  SECURITY"
+set vlan name 627 "LANCAB23A  SECURITY"
+set vlan name 628 "LANCAB25A  SECURITY"
+set vlan name 631 "LANCAB28A  SECURITY"
+set vlan name 632 "LANCAB29A  SECURITY"
+set vlan name 633 "LANCAB30A  SECURITY"
+set vlan name 634 "LANCAB36A  SECURITY"
+set vlan name 637 "LANCAB51A  SECURITY"
+set vlan name 638 "LANCAB35A  SECURITY"
+set vlan name 639 "LANCAB52A  SECURITY"
+set vlan name 640 "LANCAB53A  SECURITY"
+set vlan name 646 "LANCab32A SECURITY"
+set vlan name 801 "LANCore01  WLAN AP"
+set vlan name 802 "LANCore02  WLAN AP"
+set vlan name 803 "LANCAB01A  WLAN AP"
+set vlan name 804 "LANCAB01B  WLAN AP"
+set vlan name 805 "LANCAB01C  WLAN AP"
+set vlan name 806 "LANCAB01D  WLAN AP"
+set vlan name 807 "LANCAB01E  WLAN AP"
+set vlan name 808 "LANCAB01F  WLAN AP"
+set vlan name 809 "LANCAB01G  WLAN AP"
+set vlan name 810 "LANCAB01H  WLAN AP"
+set vlan name 811 "LANCAB01J  WLAN AP"
+set vlan name 812 "LANCAB02A  WLAN AP"
+set vlan name 813 "LANCAB02B  WLAN AP"
+set vlan name 814 "LANCABC28  WLAN AP"
+set vlan name 815 "LANCABC24  WLAN AP"
+set vlan name 816 "LANCAB04A  WLAN AP"
+set vlan name 817 "LANCAB05A  WLAN AP"
+set vlan name 818 "LANCAB06A  WLAN AP"
+set vlan name 819 "LANCAB07A  WLAN AP"
+set vlan name 820 "LANCABH10  WLAN AP"
+set vlan name 821 "LANCAB11A  WLAN AP"
+set vlan name 822 "LANCABH12  WLAN AP"
+set vlan name 823 "LANCAB14A  WLAN AP"
+set vlan name 824 "LANCAB17A  WLAN AP"
+set vlan name 825 "LANCAB18A  WLAN AP"
+set vlan name 826 "LANCAB19A  WLAN AP"
+set vlan name 827 "LANCAB23A  WLAN AP"
+set vlan name 828 "LANCAB25A  WLAN AP"
+set vlan name 829 "LANCABC26  WLAN AP"
+set vlan name 830 "LANCABC27  WLAN AP"
+set vlan name 831 "LANCAB28A  WLAN AP"
+set vlan name 832 "LANCAB29A  WLAN AP"
+set vlan name 833 "LANCAB30A  WLAN AP"
+set vlan name 834 "LANCAB36A  WLAN AP"
+set vlan name 835 "LANCAB32A  WLAN AP"
+set vlan name 836 "LANCAB33A  WLAN AP"
+set vlan name 837 "LANCAB51A  WLAN AP"
+set vlan name 838 "LANCAB35A  WLAN AP"
+set vlan name 839 "LANCAB52A  WLAN AP"
+set vlan name 840 "LANCAB53A  WLAN AP"
+set vlan name 846 "LANCab32A WLAN AP"
+set vlan name 901 "LANCore01  CAB MGMT"
+set vlan name 902 "LANCore02  CAB MGMT"
+set vlan name 903 "LANCAB01A  CAB MGMT"
+set vlan name 904 "LANCAB01B  CAB MGMT"
+set vlan name 905 "LANCAB01C  CAB MGMT"
+set vlan name 906 "LANCAB01D  CAB MGMT"
+set vlan name 907 "LANCAB01E  CAB MGMT"
+set vlan name 908 "LANCAB01F  CAB MGMT"
+set vlan name 909 "LANCAB01G  CAB MGMT"
+set vlan name 910 "LANCAB01H  CAB MGMT"
+set vlan name 911 "LANCAB01J  CAB MGMT"
+set vlan name 912 "LANCAB02A  CAB MGMT"
+set vlan name 913 "LANCAB02B  CAB MGMT"
+set vlan name 914 "LANCABC28  CAB MGMT"
+set vlan name 915 "LANCAB34A  CAB MGMT"
+set vlan name 916 "LANCAB04A  CAB MGMT"
+set vlan name 917 "LANCAB05A  CAB MGMT"
+set vlan name 918 "LANCAB06A  CAB MGMT"
+set vlan name 919 "LANCAB07A  CAB MGMT"
+set vlan name 921 "LANCAB11A  CAB MGMT"
+set vlan name 922 "LANCABH12  CAB MGMT"
+set vlan name 923 LANCabPBXA_CAB_MGMT
+set vlan name 924 "LANCAB17A  CAB MGMT"
+set vlan name 925 "LANCAB18A  CAB MGMT"
+set vlan name 926 "LANCab37A CAB MGMT"
+set vlan name 927 "LANCAB23A  CAB MGMT"
+set vlan name 928 "LANCAB25A  CAB MGMT"
+set vlan name 929 LANCab54A_Cab_Mgmt
+set vlan name 931 "LANCAB28A  CAB MGMT"
+set vlan name 932 "LANCAB29A  CAB MGMT"
+set vlan name 933 "LANCAB30A  CAB MGMT"
+set vlan name 934 "LANCAB36A  CAB MGMT"
+set vlan name 935 "LANCAB19A CAB MGMT"
+set vlan name 937 "LANCAB51A  CAB MGMT"
+set vlan name 938 "LANCAB35A  CAB MGMT"
+set vlan name 939 "LANCAB52A  CAB MGMT"
+set vlan name 940 "LANCAB53A  CAB MGMT"
+set vlan name 941 LANst143C_CABMGMT
+set vlan name 942 LANstwg20a_CabMgmt
+set vlan name 946 "LANCab32A CAB MGMT"
+set vlan name 1001 "Power House DATA"
+set vlan name 1002 "Servers - DC2 DATA"
+set vlan name 1003 "Building 23/28 DATA"
+set vlan name 1004 "Building 1 East DATA"
+set vlan name 1005 "South Cluster DATA"
+set vlan name 1006 "Servers - DC1 DATA"
+set vlan name 1007 "Stores DATA"
+set vlan name 1008 "Building 1 West DATA"
+set vlan name 1009 "BIG SciHub DATA"
+set vlan name 1010 "Building 2 DATA"
+set vlan name 1011 "Off Site - FPP DATA"
+set vlan name 1012 "Spare DATA-1"
+set vlan name 1013 "Off Site - DSTL DATA"
+set vlan name 1014 "DATA Building 32"
+set vlan name 1016 "DATA PBL C50"
+set vlan name 1018 Network-Services
+set vlan name 1020 Servers
+set vlan name 1050 "Management Network"
+set vlan name 1100 BMS
+set vlan name 1101 EUROTHERM
+set vlan name 1102 Extreme_Analytics
+set vlan name 1103 HPC-enviroment
+set vlan name 1200 "ESX MAnagement"
+set vlan name 1201 vMotion
+set vlan name 1300 "WAN IP_VPN"
+set vlan name 1313 "Customer Legacy LAN"
+set vlan name 2001 "Main Building VoIP"
+set vlan name 2002 "Satellite Buildings VoIP"
+set vlan name 2050 Group-Temp
+set vlan name 3000 "Power House GxP"
+set vlan name 3001 "Power House GxP"
+set vlan name 3002 "Servers - DC2 GxP"
+set vlan name 3003 "Building 23/28 GxP"
+set vlan name 3004 "Building 1 East GxP"
+set vlan name 3005 "South Cluster GxP"
+set vlan name 3006 "Servers - DC1 GxP"
+set vlan name 3007 "Stores GxP"
+set vlan name 3008 "Building 1 West GxP"
+set vlan name 3009 "BIG Hub GxP"
+set vlan name 3010 "Building 2 GxP"
+set vlan name 3011 "Off Site - FPP GxP"
+set vlan name 3012 "Spare GxP-1"
+set vlan name 3013 "Spare GxP-2"
+clear vlan egress 1 lag.0.1,15,28,55-60,128-190;tbp.0.1-62;ge.3.12,15,25,27-28,30,32,34,36,48;tg.3.102-103,202;tg.4.8;ge.5.104;tg.5.2,8,201-204;tg.8.13-14
+set vlan egress 30 tg.4.8 untagged
+set vlan egress 100 tg.4.202 tagged
+set vlan egress 401 lag.0.19,23,34,120 tagged
+set vlan egress 402 lag.0.2,120 tagged
+set vlan egress 403 lag.0.33,120;tg.3.104,204 tagged
+set vlan egress 404 lag.0.24,120;tg.4.3-5 tagged
+set vlan egress 405 lag.0.17-18,27,120;tg.4.204 tagged
+set vlan egress 406 lag.0.120;tg.4.2;tg.5.2 tagged
+set vlan egress 407 lag.0.20,25-26,120 tagged
+set vlan egress 408 lag.0.9-10,39,120;tg.5.3-5 tagged
+set vlan egress 409 lag.0.11,35,120 tagged
+set vlan egress 410 lag.0.13,15,120;tg.3.101 tagged
+set vlan egress 411 lag.0.22,38,120;ge.5.101 tagged
+set vlan egress 412 lag.0.120 tagged
+set vlan egress 413 lag.0.40-41,120 tagged
+set vlan egress 414 lag.0.120 tagged
+set vlan egress 415 lag.0.120 tagged
+set vlan egress 416 lag.0.120 tagged
+set vlan egress 417 lag.0.120 tagged
+set vlan egress 418 lag.0.120 tagged
+set vlan egress 419 lag.0.120 tagged
+set vlan egress 420 lag.0.120 tagged
+set vlan egress 449 lag.0.55-60 tagged
+set vlan egress 499 lag.0.55-60,120;tg.4.1-2;tg.5.2;tg.8.1-12 tagged
+set vlan egress 499 ge.3.48 untagged
+set vlan egress 600 lag.0.120 tagged
+set vlan egress 601 lag.0.120;tg.4.202 tagged
+set vlan egress 602 lag.0.2,120 tagged
+set vlan egress 603 lag.0.120;tg.4.3 tagged
+set vlan egress 604 lag.0.120;tg.5.3 tagged
+set vlan egress 605 lag.0.120;tg.4.4 tagged
+set vlan egress 606 lag.0.120;tg.5.4 tagged
+set vlan egress 607 lag.0.120;tg.4.5 tagged
+set vlan egress 608 lag.0.120;tg.5.5 tagged
+set vlan egress 609 lag.0.9,120 tagged
+set vlan egress 610 lag.0.10,120 tagged
+set vlan egress 611 lag.0.11,120 tagged
+set vlan egress 612 lag.0.120;tg.3.101 tagged
+set vlan egress 613 lag.0.13,120 tagged
+set vlan egress 614 lag.0.15,120 tagged
+set vlan egress 615 lag.0.16,120 tagged
+set vlan egress 616 lag.0.17,120 tagged
+set vlan egress 617 lag.0.18,120 tagged
+set vlan egress 618 lag.0.19,120 tagged
+set vlan egress 619 lag.0.20,120 tagged
+set vlan egress 620 lag.0.120 tagged
+set vlan egress 621 lag.0.22,120;ge.5.101 tagged
+set vlan egress 622 lag.0.23,120 tagged
+set vlan egress 623 lag.0.24,38,120;ge.3.42;ge.5.111 tagged
+set vlan egress 624 lag.0.25,120 tagged
+set vlan egress 625 lag.0.26,120 tagged
+set vlan egress 626 lag.0.27,61,120;ge.3.32 tagged
+set vlan egress 627 lag.0.120;ge.3.32,34;tg.3.204 tagged
+set vlan egress 628 lag.0.120;tg.4.204 tagged
+set vlan egress 629 lag.0.120 tagged
+set vlan egress 630 lag.0.120 tagged
+set vlan egress 631 lag.0.120;tg.3.104 tagged
+set vlan egress 632 lag.0.33,120 tagged
+set vlan egress 633 lag.0.34,120 tagged
+set vlan egress 634 lag.0.35,120 tagged
+set vlan egress 635 lag.0.120 tagged
+set vlan egress 636 lag.0.120 tagged
+set vlan egress 637 lag.0.38,120 tagged
+set vlan egress 638 lag.0.39,120 tagged
+set vlan egress 639 lag.0.40,120 tagged
+set vlan egress 640 lag.0.41,120 tagged
+set vlan egress 641 lag.0.120 tagged
+set vlan egress 642 lag.0.120 tagged
+set vlan egress 643 lag.0.120 tagged
+set vlan egress 644 lag.0.120 tagged
+set vlan egress 645 lag.0.120 tagged
+set vlan egress 646 lag.0.48,120;ge.3.16;ge.5.103 tagged
+set vlan egress 647 lag.0.120 tagged
+set vlan egress 648 lag.0.120 tagged
+set vlan egress 649 lag.0.120 tagged
+set vlan egress 650 lag.0.120 tagged
+set vlan egress 651 lag.0.120 tagged
+set vlan egress 652 lag.0.120 tagged
+set vlan egress 653 lag.0.120 tagged
+set vlan egress 654 lag.0.120 tagged
+set vlan egress 655 lag.0.120 tagged
+set vlan egress 656 lag.0.120 tagged
+set vlan egress 657 lag.0.120 tagged
+set vlan egress 658 lag.0.120 tagged
+set vlan egress 659 lag.0.120 tagged
+set vlan egress 660 lag.0.120 tagged
+set vlan egress 661 lag.0.120 tagged
+set vlan egress 662 lag.0.120 tagged
+set vlan egress 663 lag.0.120 tagged
+set vlan egress 701 lag.0.120 tagged
+set vlan egress 702 lag.0.120 tagged
+set vlan egress 703 lag.0.55-60,120;tg.4.1;tg.8.1-12 tagged
+set vlan egress 704 lag.0.120 tagged
+set vlan egress 705 lag.0.120 tagged
+set vlan egress 706 lag.0.120 tagged
+set vlan egress 707 lag.0.120 tagged
+set vlan egress 708 lag.0.120 tagged
+set vlan egress 709 lag.0.120 tagged
+set vlan egress 710 lag.0.120 tagged
+set vlan egress 711 lag.0.120 tagged
+set vlan egress 712 lag.0.120 tagged
+set vlan egress 713 lag.0.120 tagged
+set vlan egress 714 lag.0.120 tagged
+set vlan egress 715 lag.0.120 tagged
+set vlan egress 716 lag.0.120 tagged
+set vlan egress 717 lag.0.120 tagged
+set vlan egress 718 lag.0.120 tagged
+set vlan egress 719 lag.0.120 tagged
+set vlan egress 720 lag.0.120 tagged
+set vlan egress 721 lag.0.120 tagged
+set vlan egress 722 lag.0.120 tagged
+set vlan egress 723 lag.0.120 tagged
+set vlan egress 724 lag.0.120 tagged
+set vlan egress 725 lag.0.120 tagged
+set vlan egress 726 lag.0.120 tagged
+set vlan egress 727 lag.0.120 tagged
+set vlan egress 728 lag.0.120 tagged
+set vlan egress 729 lag.0.120 tagged
+set vlan egress 730 lag.0.120 tagged
+set vlan egress 731 lag.0.120 tagged
+set vlan egress 732 lag.0.120 tagged
+set vlan egress 733 lag.0.120 tagged
+set vlan egress 734 lag.0.120 tagged
+set vlan egress 735 lag.0.120 tagged
+set vlan egress 736 lag.0.120 tagged
+set vlan egress 737 lag.0.120 tagged
+set vlan egress 738 lag.0.120 tagged
+set vlan egress 739 lag.0.120 tagged
+set vlan egress 740 lag.0.120 tagged
+set vlan egress 741 lag.0.120 tagged
+set vlan egress 742 lag.0.120 tagged
+set vlan egress 743 lag.0.120 tagged
+set vlan egress 744 lag.0.120 tagged
+set vlan egress 745 lag.0.120 tagged
+set vlan egress 746 lag.0.120 tagged
+set vlan egress 747 lag.0.120 tagged
+set vlan egress 748 lag.0.120 tagged
+set vlan egress 749 lag.0.120 tagged
+set vlan egress 750 lag.0.120 tagged
+set vlan egress 751 lag.0.120 tagged
+set vlan egress 752 lag.0.120 tagged
+set vlan egress 753 lag.0.120 tagged
+set vlan egress 754 lag.0.120 tagged
+set vlan egress 755 lag.0.120 tagged
+set vlan egress 756 lag.0.120 tagged
+set vlan egress 757 lag.0.120 tagged
+set vlan egress 758 lag.0.120 tagged
+set vlan egress 759 lag.0.120 tagged
+set vlan egress 760 lag.0.120 tagged
+set vlan egress 761 lag.0.120 tagged
+set vlan egress 762 lag.0.120 tagged
+set vlan egress 763 lag.0.120 tagged
+set vlan egress 764 lag.0.120 tagged
+set vlan egress 801 lag.0.120;tg.4.202 tagged
+set vlan egress 802 lag.0.2,120 tagged
+set vlan egress 803 lag.0.120;tg.4.3 tagged
+set vlan egress 804 lag.0.120;tg.5.3 tagged
+set vlan egress 805 lag.0.120;tg.4.4 tagged
+set vlan egress 806 lag.0.120;tg.5.4 tagged
+set vlan egress 807 lag.0.120;tg.4.5 tagged
+set vlan egress 808 lag.0.120;tg.5.5 tagged
+set vlan egress 809 lag.0.9,120 tagged
+set vlan egress 810 lag.0.10,120 tagged
+set vlan egress 811 lag.0.11,120 tagged
+set vlan egress 812 lag.0.120;tg.3.101 tagged
+set vlan egress 813 lag.0.13,120 tagged
+set vlan egress 814 lag.0.15,120 tagged
+set vlan egress 815 lag.0.16,120 tagged
+set vlan egress 816 lag.0.17,120 tagged
+set vlan egress 817 lag.0.18,120 tagged
+set vlan egress 818 lag.0.19,73,120 tagged
+set vlan egress 819 lag.0.20,120 tagged
+set vlan egress 820 lag.0.120 tagged
+set vlan egress 821 lag.0.22,120;ge.5.101 tagged
+set vlan egress 822 lag.0.23,120 tagged
+set vlan egress 823 lag.0.24,120 tagged
+set vlan egress 824 lag.0.25,120 tagged
+set vlan egress 825 lag.0.26,120 tagged
+set vlan egress 826 lag.0.27,120 tagged
+set vlan egress 827 lag.0.120;ge.3.34;tg.3.204 tagged
+set vlan egress 828 lag.0.120;tg.3.104;tg.4.204 tagged
+set vlan egress 829 lag.0.120 tagged
+set vlan egress 830 lag.0.120 tagged
+set vlan egress 831 lag.0.15,120;tg.3.104 tagged
+set vlan egress 832 lag.0.33,120 tagged
+set vlan egress 833 lag.0.34,120 tagged
+set vlan egress 834 lag.0.35,120 tagged
+set vlan egress 835 lag.0.120 tagged
+set vlan egress 836 lag.0.120 tagged
+set vlan egress 837 lag.0.38,120 tagged
+set vlan egress 838 lag.0.39,120 tagged
+set vlan egress 839 lag.0.40,120 tagged
+set vlan egress 840 lag.0.41,120 tagged
+set vlan egress 841 lag.0.120 tagged
+set vlan egress 842 lag.0.120 tagged
+set vlan egress 843 lag.0.120 tagged
+set vlan egress 844 lag.0.120 tagged
+set vlan egress 845 lag.0.120 tagged
+set vlan egress 846 lag.0.48,120;ge.3.16;ge.5.103 tagged
+set vlan egress 847 lag.0.120 tagged
+set vlan egress 848 lag.0.120 tagged
+set vlan egress 849 lag.0.120 tagged
+set vlan egress 850 lag.0.120 tagged
+set vlan egress 851 lag.0.120 tagged
+set vlan egress 852 lag.0.120 tagged
+set vlan egress 853 lag.0.120 tagged
+set vlan egress 854 lag.0.120 tagged
+set vlan egress 855 lag.0.120 tagged
+set vlan egress 856 lag.0.120 tagged
+set vlan egress 857 lag.0.120 tagged
+set vlan egress 858 lag.0.120 tagged
+set vlan egress 859 lag.0.120 tagged
+set vlan egress 860 lag.0.120 tagged
+set vlan egress 861 lag.0.120 tagged
+set vlan egress 862 lag.0.120 tagged
+set vlan egress 863 lag.0.120 tagged
+set vlan egress 864 lag.0.120 tagged
+set vlan egress 901 lag.0.120;ge.3.12;tg.4.2,202;tg.5.2 tagged
+set vlan egress 902 lag.0.2,120;ge.3.24 tagged
+set vlan egress 903 lag.0.120;tg.4.3 tagged
+set vlan egress 904 lag.0.120;tg.5.3 tagged
+set vlan egress 905 lag.0.120;tg.4.4 tagged
+set vlan egress 906 lag.0.120;tg.5.4 tagged
+set vlan egress 907 lag.0.120;tg.4.5 tagged
+set vlan egress 908 lag.0.120;tg.5.5 tagged
+set vlan egress 909 lag.0.9,120;ge.3.1;tg.3.203;tg.4.203 tagged
+set vlan egress 910 lag.0.10,120 tagged
+set vlan egress 911 lag.0.11,120;ge.3.20 tagged
+set vlan egress 912 lag.0.120;tg.3.101 tagged
+set vlan egress 913 lag.0.13,120;ge.3.31 tagged
+set vlan egress 914 lag.0.15,120;ge.3.29;ge.4.107 tagged
+set vlan egress 915 lag.0.16,120;ge.3.7;ge.5.104 tagged
+set vlan egress 916 lag.0.17,120;ge.3.10;ge.4.110 tagged
+set vlan egress 917 lag.0.18,120;ge.3.14;ge.5.102 tagged
+set vlan egress 918 lag.0.19,120;ge.3.5 tagged
+set vlan egress 919 lag.0.20,120;ge.3.2 tagged
+set vlan egress 920 lag.0.120 tagged
+set vlan egress 921 lag.0.22,120;ge.3.13;ge.5.101 tagged
+set vlan egress 922 lag.0.23,120;ge.3.29 tagged
+set vlan egress 923 lag.0.120;ge.5.105 tagged
+set vlan egress 924 lag.0.25,120;ge.3.9;ge.4.109 tagged
+set vlan egress 925 lag.0.26,120;ge.3.11;ge.4.111 tagged
+set vlan egress 926 lag.0.27,120;ge.3.15;ge.4.112 tagged
+set vlan egress 927 lag.0.120;ge.3.34;tg.3.204 tagged
+set vlan egress 928 lag.0.120;tg.4.204 tagged
+set vlan egress 929 lag.0.120;ge.3.26 tagged
+set vlan egress 930 lag.0.120 tagged
+set vlan egress 931 lag.0.120;tg.3.104;tg.4.202 tagged
+set vlan egress 932 lag.0.33,120;ge.3.21 tagged
+set vlan egress 933 lag.0.34,120;ge.3.18;ge.5.106 tagged
+set vlan egress 934 lag.0.35,120;ge.3.22;tg.4.7;ge.5.112;tg.5.7 tagged
+set vlan egress 935 lag.0.1,61,120;ge.3.32,34 tagged
+set vlan egress 936 lag.0.73,120 tagged
+set vlan egress 937 lag.0.38,120;ge.3.42;ge.5.111 tagged
+set vlan egress 938 lag.0.39,120;ge.3.8;ge.4.108 tagged
+set vlan egress 939 lag.0.40,120;ge.3.41;ge.5.110 tagged
+set vlan egress 940 lag.0.41,120;ge.3.43-44 tagged
+set vlan egress 941 lag.0.120 tagged
+set vlan egress 942 lag.0.38,120 tagged
+set vlan egress 943 lag.0.120 tagged
+set vlan egress 944 lag.0.120 tagged
+set vlan egress 945 lag.0.120 tagged
+set vlan egress 946 lag.0.48,120;ge.3.16;ge.5.103 tagged
+set vlan egress 947 lag.0.120 tagged
+set vlan egress 948 lag.0.120 tagged
+set vlan egress 949 lag.0.120 tagged
+set vlan egress 950 lag.0.120 tagged
+set vlan egress 951 lag.0.120 tagged
+set vlan egress 952 lag.0.120 tagged
+set vlan egress 953 lag.0.120 tagged
+set vlan egress 954 lag.0.120 tagged
+set vlan egress 955 lag.0.120;tg.4.6 tagged
+set vlan egress 956 lag.0.120 tagged
+set vlan egress 957 lag.0.120;tg.5.8 tagged
+set vlan egress 958 lag.0.120;tg.4.202 tagged
+set vlan egress 959 lag.0.120;tg.4.203;tg.5.203 tagged
+set vlan egress 960 lag.0.120;tg.4.204;tg.5.204 tagged
+set vlan egress 961 lag.0.120 tagged
+set vlan egress 962 lag.0.120 tagged
+set vlan egress 963 lag.0.120 tagged
+set vlan egress 964 lag.0.120 tagged
+set vlan egress 1001 lag.0.15,19,23,34,48,120;ge.3.16;tg.4.3;ge.5.103 tagged
+set vlan egress 1002 lag.0.2,42-47,55-60,120;tg.3.203;tg.4.1-3,6-7,201-204;tg.5.2,6-8,203-204;tg.8.1-12 tagged
+set vlan egress 1003 lag.0.33,61,120;ge.3.32,34;tg.3.104,204;tg.4.3 tagged
+set vlan egress 1004 lag.0.16,24,120;tg.4.3-5 tagged
+set vlan egress 1005 lag.0.17-18,27,42-47,120;tg.3.203;tg.4.2-3,6-7,201-204;tg.5.2,7-8,203-204 tagged
+set vlan egress 1006 lag.0.42-47,55-60,120;tg.3.102,202-203;tg.4.1-3,6-7,201-204;tg.5.2,6-8,203-204;tg.8.1-12 tagged
+set vlan egress 1006 lag.0.9,28;ge.3.30;tg.5.201-202;tg.8.13-14 untagged
+set vlan egress 1007 lag.0.15,20,25-26,120;tg.4.3 tagged
+set vlan egress 1008 lag.0.9-10,39,120;tg.4.3;tg.5.3-5 tagged
+set vlan egress 1009 lag.0.11,35,120;tg.4.3 tagged
+set vlan egress 1010 lag.0.13,15,120;tg.3.101;tg.4.3 tagged
+set vlan egress 1011 lag.0.22,38,120;tg.4.3;ge.5.101 tagged
+set vlan egress 1012 lag.0.38,120;tg.4.3 tagged
+set vlan egress 1013 lag.0.40-41,120;ge.3.26;tg.4.3 tagged
+set vlan egress 1014 lag.0.73,120 tagged
+set vlan egress 1015 lag.0.120;ge.3.15 tagged
+set vlan egress 1016 lag.0.120;ge.5.101 tagged
+set vlan egress 1017 lag.0.120 tagged
+set vlan egress 1018 lag.0.55-60,120;tg.5.6 tagged
+set vlan egress 1019 lag.0.120;tg.3.102,202 tagged
+set vlan egress 1020 lag.0.55-60,120;tg.3.102,202;tg.4.7;tg.5.2,6-7 tagged
+set vlan egress 1021 lag.0.120;ge.5.105 tagged
+set vlan egress 1050 lag.0.120;ge.3.12,24 tagged
+set vlan egress 1100 lag.0.11,18-20,26,38,41,120;ge.3.20-21;tg.4.3;ge.5.108-109;tg.5.3-4 tagged
+set vlan egress 1101 lag.0.11,17,25,120;tg.4.3-4;tg.5.4-5 tagged
+set vlan egress 1102 lag.0.55-60,120;tg.4.1-2;tg.5.2,6;tg.8.1-12 tagged
+set vlan egress 1103 lag.0.120;tg.5.6 tagged
+set vlan egress 1104 lag.0.120 tagged
+set vlan egress 1105 lag.0.120 tagged
+set vlan egress 1106 lag.0.120 tagged
+set vlan egress 1107 lag.0.120 tagged
+set vlan egress 1108 lag.0.120 tagged
+set vlan egress 1109 lag.0.120 tagged
+set vlan egress 1110 lag.0.120 tagged
+set vlan egress 1111 lag.0.120 tagged
+set vlan egress 1112 lag.0.120 tagged
+set vlan egress 1113 lag.0.120 tagged
+set vlan egress 1200 lag.0.42-47,120;tg.3.203;tg.4.2,6-7,201-204;tg.5.2,7-8,203-204 tagged
+set vlan egress 1201 lag.0.42-47,120;tg.3.203;tg.4.2,6-7,201-204;tg.5.2,7-8,203-204 tagged
+set vlan egress 1202 lag.0.120 tagged
+set vlan egress 1203 lag.0.120 tagged
+set vlan egress 1204 lag.0.120 tagged
+set vlan egress 1205 lag.0.120 tagged
+set vlan egress 1206 lag.0.120 tagged
+set vlan egress 1207 lag.0.120 tagged
+set vlan egress 1208 lag.0.120 tagged
+set vlan egress 1209 lag.0.120 tagged
+set vlan egress 1210 lag.0.120 tagged
+set vlan egress 1211 lag.0.120 tagged
+set vlan egress 1212 lag.0.120 tagged
+set vlan egress 1213 lag.0.120 tagged
+set vlan egress 1300 lag.0.120 tagged
+set vlan egress 1300 tg.3.103 untagged
+set vlan egress 1301 lag.0.120 tagged
+set vlan egress 1302 lag.0.120 tagged
+set vlan egress 1303 lag.0.120 tagged
+set vlan egress 1304 lag.0.120 tagged
+set vlan egress 1305 lag.0.120 tagged
+set vlan egress 1306 lag.0.120 tagged
+set vlan egress 1307 lag.0.120 tagged
+set vlan egress 1308 lag.0.120 tagged
+set vlan egress 1309 lag.0.120 tagged
+set vlan egress 1310 lag.0.120 tagged
+set vlan egress 1311 lag.0.120 tagged
+set vlan egress 1312 lag.0.120 tagged
+set vlan egress 1313 lag.0.9,11,35,42-47,55-60,120;tg.4.1-7,202,204;tg.5.2-5,7-8,203-204;tg.8.1-12 tagged
+set vlan egress 1313 lag.0.1;ge.3.25,27-28,36 untagged
+set vlan egress 1400 lag.0.120 tagged
+set vlan egress 1401 lag.0.120 tagged
+set vlan egress 1402 lag.0.120 tagged
+set vlan egress 1403 lag.0.120 tagged
+set vlan egress 1404 lag.0.120 tagged
+set vlan egress 1405 lag.0.120 tagged
+set vlan egress 1406 lag.0.120 tagged
+set vlan egress 1407 lag.0.120 tagged
+set vlan egress 1408 lag.0.120 tagged
+set vlan egress 2000 lag.0.120 tagged
+set vlan egress 2001 lag.0.9-10,13,16,24,35,39,120;tg.3.101;tg.4.3-5,202,204;tg.5.3-5 tagged
+set vlan egress 2002 lag.0.11,15,17-20,22-23,25-27,33-35,38,40-41,48,61,73,120;ge.3.16,32,42;tg.3.104,204;tg.4.204;ge.5.101,103,111 tagged
+set vlan egress 2003 lag.0.13,15;tg.3.101 tagged
+set vlan egress 2050 lag.0.120;tg.5.2 tagged
+set vlan egress 3000 lag.0.120 tagged
+set vlan egress 3001 lag.0.19,23,34,73,120 tagged
+set vlan egress 3002 lag.0.2,120 tagged
+set vlan egress 3003 lag.0.33,61,120;ge.3.32,34;tg.3.104,204 tagged
+set vlan egress 3004 lag.0.24,39,120;tg.4.3-5 tagged
+set vlan egress 3005 lag.0.17-18,27,120;tg.4.204 tagged
+set vlan egress 3006 lag.0.120;tg.4.2;tg.5.2 tagged
+set vlan egress 3007 lag.0.20,25-26,120 tagged
+set vlan egress 3008 lag.0.9-10,120;tg.5.3-5 tagged
+set vlan egress 3009 lag.0.11,35,120 tagged
+set vlan egress 3010 lag.0.13,15,120;tg.3.101 tagged
+set vlan egress 3011 lag.0.22,38,120;ge.5.101 tagged
+set vlan egress 3012 lag.0.120 tagged
+set vlan egress 3013 lag.0.40-41,120 tagged
+set vlan egress 3014 lag.0.120 tagged
+set vlan egress 3015 lag.0.120 tagged
+set vlan egress 3016 lag.0.120 tagged
+set vlan egress 3017 lag.0.120 tagged
+set vlan egress 3018 lag.0.120 tagged
+set vlan egress 3019 lag.0.120 tagged
+set vlan egress 3020 lag.0.120;tg.5.2,7 tagged
+!
+# vlanauthorization
+!
+# webview
+!
+# width
+set width 200 default
+!
+end
+
+#END: 047503b6b92b51ca31b0ad9d99f109ff
+
