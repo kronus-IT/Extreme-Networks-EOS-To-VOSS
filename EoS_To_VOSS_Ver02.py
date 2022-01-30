@@ -386,23 +386,32 @@ if eos_text_confirm[0] == 'y':
         w.close()
     create_excel(eos_config_parameters)
 elif eos_excel_confirm[0] == 'y':
-    files_xlsx = []
+    files_xlsx = [] #This will hold a list of all files ending in extentsion .xlsx
     eos_vlan_config = {}
-    #This obtains the current path
-    current_path = os.getcwd()
-    #This determines the file format to search for
-    file_ext = r".xlsx"
+    current_path = os.getcwd() #This obtains the current full path like c:\users\martin\python
+    file_ext = r".xlsx" #This determines the file format to search for
+    #This loops through the current path finding all files that end in .xlsx
+    #And keeps appending them to the files_xlsx list
     for file in os.listdir(current_path):
         if file.endswith(file_ext):
             print(os.path.join("", file))
             files_xlsx.append(os.path.join("", file))
+    #This sets up the question and the list of .xlsx files based on the files_xlsx list
     what_file = [inquirer.List('xlxs-files', message = "Which xlsx file below are you using as a template", choices = files_xlsx,)]
+    #This initiates presenting the list of choices, and then stores the file name as a dictionary xlsx-files:<filename>
     xlsx_workbook_name = inquirer.prompt(what_file)
+    #This loads the workbook into the xlsx_workbook based on the key 'xlsx-files' in xlsx_workbook_name
     xlsx_workbook = load_workbook(filename=xlsx_workbook_name['xlxs-files'])
+    #This obtains a list of the worksheets as stored in the xlsx_workbook
     xlsx_sheets = xlsx_workbook.sheetnames
+    #This sets up the question and the list of worksheets based on the xlxs-sheets list
     what_worksheet = [inquirer.List('xlxs-sheets', message = "Which sheet will you be using for interface and VLAN configuration", choices = xlsx_sheets,)]
+    #This initiates presenting the list of choices, and then stores the worksheet name as a dictionary xlsx-sheets:<worksheet name>
     xlsx_worksheet_name = inquirer.prompt(what_worksheet)
+    #This creates a dictionary of all the contents of the worksheet into the
+    #eos_config_parameters based on the key 'xlsx-sheets' in xlsx_worksheet_name
     eos_config_parameters = read_excel (xlsx_workbook,xlsx_worksheet_name['xlxs-sheets'])
+    #This passes all the confiugration contents to the config_param function that then writes the VOSS CLI
     voss_config = config_param(eos_config_parameters,voss_include_vlan_create,voss_isid,eos_vlan_config)
     with open('voss_config.txt', 'w') as w:
         w.write('\n'.join(voss_config))
