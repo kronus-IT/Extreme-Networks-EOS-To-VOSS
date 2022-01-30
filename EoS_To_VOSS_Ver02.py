@@ -1,3 +1,8 @@
+##########################################################
+# EOS_To_VOSS: Convert Extreme EOS to Extreme VOSS       #
+# Written by Martin FLammia, Director, Kronus IT         #
+#########################################################
+
 from openpyxl import Workbook, load_workbook
 import re
 import os
