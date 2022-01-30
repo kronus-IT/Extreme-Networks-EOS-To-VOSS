@@ -1,6 +1,6 @@
 ##########################################################
 # EOS_To_VOSS: Convert Extreme EOS to Extreme VOSS       #
-# Written by Martin FLammia, Director, Kronus IT         #
+# Written by Martin Flammia, Director, Kronus IT         #
 #########################################################
 
 from openpyxl import Workbook, load_workbook
@@ -9,20 +9,15 @@ import os
 import inquirer
 
 def read_excel (xlsx_workbook,xlsx_worksheet_name):
-    ##Need to get list of number of rows
-    ##Then iterate throgh each row using the number as a key
-    ##Then add all the row of information as key = colomn & value = row
+    '''This function takes the worksheet and worksheet name'''
     xlsx_headers = {}
     xlsx_value = {}
     xlsx_rows = {}
-    #xlsx_config_row = {}
     xlsx_sentence = {}
     xlsx_key_counter = 0
     xlsx_sentence_counter = 0
     xlsx_row_counter = 0
     xlsx_worksheet = xlsx_workbook[xlsx_worksheet_name]
-    #xlsx_number_of_rows = xlsx_worksheet.max_row
-    #xlsx_number_of_columns = xlsx_worksheet.max_column
     for xlsx_row_keys in xlsx_worksheet.iter_rows(max_row=1,values_only=True):
         for xlsx_row_key in xlsx_row_keys:
             xlsx_key_counter += 1
@@ -180,9 +175,7 @@ def eos_vlan_dict(eos_vlan_config):
     eos_vlan_name = eos_vlan_lines[4:]
     eos_vlan_name = ' '.join(eos_vlan_name)
     eos_vlan_name_stripped = re.sub(r"[^a-zA-Z0-9-_ ]","",eos_vlan_name)
-    ##eos_vlan_name = re.findall('"([^"]*)"',eos_vlan_config_string)
     #This formats the string to be vlan_10 so as to use as key for dictionary
-    ##eos_vlan_id_concantenated = "vlan_" + eos_vlan_id
     eos_vlan_id_concantenated = eos_vlan_id
     eos_vlan_id_vlan_name[eos_vlan_id_concantenated] = eos_vlan_name_stripped
     return eos_vlan_id_vlan_name
@@ -290,7 +283,6 @@ def config_param(eos_config_parameters,voss_include_vlan_create,voss_isid,eos_vl
         voss_config['ip_vrrp_priority'] = "ip vrrp " + paragraph["vrid"] + " " + "priority " + paragraph["vrrp_priority"]
         voss_config['ip_dhcp_relay'] = "ip dhcp-relay"
         voss_config['ip_dhcp_relay_mode'] = "ip dhcp-relay mode dhcp"
-        #voss_config['ip_ospf_area'] = "ip ospf area " + area
         voss_config['ip_ospf_passive'] = "ip ospf network passive"
         voss_config['ip_ospf_enable'] = "ip ospf enable"
         voss_config['ip_igmp_snooping'] = "ip igmp snooping"
@@ -420,4 +412,3 @@ else:
 if produce_excel[0] == 'y':
     print (read_excel)
     print ('An Excel document called configuration.xlxs has been created in the same directory as your script')
-    
