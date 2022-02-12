@@ -49,7 +49,7 @@ And convert to something like the below.
 * All interfaces are OSPF enabled and passive.
 * VRRP version 3 is used.
 ```
-vlan create 64 name Power House GUEST LAN type port-mstprstp 0
+vlan create 64 name "Power House GUEST LAN" type port-mstprstp 0
 vlan i-sid 64 12110064
 interface vlan 64
 ip address 10.119.255.10 255.255.255.0
