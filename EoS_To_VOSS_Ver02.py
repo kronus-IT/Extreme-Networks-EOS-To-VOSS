@@ -94,10 +94,8 @@ def eos_paragraph_splitter (eos_config):
     #completed per paragraph set of config lines.
     config_lines = []
     #This funtion iterates through the config, splits it into each line, and strips the leading whitespace
-    ###eos_config_per_line_no_leading_whitespace = eos_remove_leading_whitespace(eos_config)
     #This counts how many times "interface " appears in config as a means to count number of paragraphs
     #Needed to put a space after the interace as the command "interface-up-delay" was counting interface an extra time
-    ##interface_count = eos_config.count("interface vlan.0.10")
     interface_count = sum('interface vlan' in s for s in eos_config)
     #This generates the loop that iterates through the test the number of times that is equal to the interace count
     while paragraph_count < interface_count:
