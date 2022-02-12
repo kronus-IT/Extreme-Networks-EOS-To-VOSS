@@ -7,7 +7,7 @@ Probably is the most terribly written program ever (still working on it), but it
 
 It basically takes an EOS backup file, or an Excel configuration template file and produces all the VLAN / Interface configuration into VOSS. Equally it will take the EOS config and create a spreadsheet with all the configuration details like IP address, VLAN ID, VRRP VIP, Helpers etc.
 
-Accompanying the python script file is an example EOS backup file called ‘eos_full_config.txt’, and the VOSS Excel configuration template ‘Config_Temp_Ver07’. At this time the script only supports the ‘Interface’ tab in the Excel file, but I do have another python script that creates the generic configs from the ‘Fabric’ tab that fully creates the VOSS ready to roll. This will be added in later additions.
+Accompanying the python script file is an example EOS backup file called ‘eos_full_config.txt’, and the VOSS Excel configuration template ‘Config_Temp_Ver08’. At this time the script only supports the ‘Interface’ tab in the Excel file, but I do have another python script that creates the generic configs from the ‘Fabric’ tab that fully creates the VOSS ready to roll. This will be added in later additions.
 
 This is configured in Python 3, and will need to do a PIP install for openpyxl and inquirer.
 
